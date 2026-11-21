@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795300731182,
+ "rev": 1795300901987,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -35,11 +35,11 @@
    "style": 1
   },
   {
-   "photo": "",
+   "photo": "https://raw.githubusercontent.com/sherbetface/rumble/1751b012d1219c30be9cf3ea1659e5207d867fae/photos/w3.jpg",
    "px": 50,
    "py": 25,
    "pz": 1,
-   "spotify": "",
+   "spotify": "https://open.spotify.com/track/4rDtgqtsk3OsSDx0042cVp?si=4d4b42e1e94342d5",
    "start": 0,
    "bg": "generic",
    "yt": "",
@@ -47,8 +47,8 @@
    "video": "",
    "id": "w3",
    "name": "Bron Breakker",
-   "color": "#e8b400",
-   "style": 2
+   "color": "#e67e22",
+   "style": 4
   },
   {
    "photo": "",
