@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795301883131,
+ "rev": 1795302030918,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -291,20 +291,20 @@
    "style": 2
   },
   {
-   "photo": "",
+   "photo": "https://raw.githubusercontent.com/sherbetface/rumble/2bef500fde9ec7df41c50ca6707d63c9379c69fa/photos/w1795301882429.jpg",
    "px": 50,
    "py": 25,
    "pz": 1,
-   "spotify": "",
+   "spotify": "https://open.spotify.com/track/5iSF4V1nxg1ZqcTs74ehOs?si=3daa407fe16d4e39",
    "start": 0,
    "bg": "generic",
    "yt": "",
    "ytAudio": false,
    "video": "",
    "id": "w1795301882429",
-   "name": "New Wrestler",
-   "color": "#7f8c8d",
-   "style": 7
+   "name": "Goldberg",
+   "color": "#d4a017",
+   "style": 10
   }
  ]
 }
