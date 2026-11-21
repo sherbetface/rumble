@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795301254332,
+ "rev": 1795301270099,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -177,6 +177,22 @@
    "name": "Stone Cold Steve Austin",
    "color": "#2e86de",
    "style": 6
+  },
+  {
+   "photo": "",
+   "px": 50,
+   "py": 25,
+   "pz": 1,
+   "spotify": "",
+   "start": 0,
+   "bg": "generic",
+   "yt": "",
+   "ytAudio": false,
+   "video": "",
+   "id": "w1795301269398",
+   "name": "New Wrestler",
+   "color": "#c0392b",
+   "style": 0
   }
  ]
 }
