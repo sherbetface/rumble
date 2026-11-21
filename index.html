@@ -159,6 +159,9 @@ input[type=range]{width:100%;accent-color:var(--gold)}
     <option value="sdk">Inside this app only</option>
     <option value="app">The Spotify app only</option>
   </select>
+  <label for="spDev">Play on</label>
+  <div class="row"><select id="spDev" style="flex:1"><option value="">This iPad (automatic)</option></select><button class="btn" id="spDevRef">↻ Find devices</button></div>
+  <p class="note">Open the Spotify app on the iPad first, then tap Find devices and pick this iPad. Speakers, Alexa and TVs are never used unless you pick them here.</p>
   <div class="actions">
     <div class="row"><button class="btn pri" id="spConnect">Connect Spotify</button><button class="btn" id="spTest">Test</button><button class="btn danger" id="spOut">Disconnect</button></div>
     <button class="btn" data-close>Done</button>
@@ -333,7 +336,7 @@ function beatStop(){clearInterval(beat.id);beat.id=0}
 const spotId=u=>(String(u).match(/track[/:]([A-Za-z0-9]{22})/)||[])[1];
 const REDIR=location.origin+location.pathname;
 const LOG=[];const slog=m=>{LOG.push(new Date().toTimeString().slice(0,8)+' '+m);if(LOG.length>40)LOG.shift();const el=document.getElementById('spLog');if(el)el.textContent=LOG.join('\n')};
-const SP={cid:ls.get('sp.cid',''),tok:ls.get('sp.tok',null),mode:ls.get('sp.mode','auto'),player:null,dev:null,active:null,err:'',run:0};
+const SP={cid:ls.get('sp.cid',''),tok:ls.get('sp.tok',null),mode:ls.get('sp.mode','auto'),devName:ls.get('sp.dev',''),player:null,dev:null,active:null,err:'',run:0};
 const b64u=buf=>btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 async function spLogin(){if(!SP.cid)return toast('Paste your Client ID first');const v=b64u(crypto.getRandomValues(new Uint8Array(48)));ls.set('sp.ver',v);
   const ch=b64u(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(v)));
@@ -353,7 +356,7 @@ function spSdk(){if(SP.player||!SP.tok||SP.mode==='app'||document.getElementById
   const s=document.createElement('script');s.id='spsdk';s.src='https://sdk.scdn.co/spotify-player.js';document.head.appendChild(s)}
 async function spPlay(w){slog(`Play ${w.name}: track ${spotId(w.spotify)} · mode ${SP.mode} · in-app device ${SP.dev?'ready':'not ready'}`);const id=spotId(w.spotify),body=JSON.stringify({uris:['spotify:track:'+id],position_ms:Math.round((w.start||0)*1000)}),tries=[];
   if(SP.mode!=='app'&&SP.dev)tries.push(SP.dev);
-  if(SP.mode!=='sdk'){try{const all=(await spApi('/me/player/devices'))?.devices||[];slog('Devices Spotify sees: '+(all.map(d=>`${d.name} (${d.type}${d.is_active?', active':''})`).join(', ')||'none'));const ds=all.filter(d=>d.id!==SP.dev);const d=ds.find(d=>d.is_active)||ds.find(d=>/tablet|smartphone/i.test(d.type))||ds[0];if(d)tries.push(d.id)}catch(e){slog('Device list failed: '+e.message)}}
+  if(SP.mode!=='sdk'){try{const all=(await spApi('/me/player/devices'))?.devices||[];slog('Devices Spotify sees: '+(all.map(d=>`${d.name} (${d.type}${d.is_active?', active':''})`).join(', ')||'none'));const ds=all.filter(d=>d.id!==SP.dev);const d=SP.devName?ds.find(d=>d.name===SP.devName):(ds.find(d=>/tablet/i.test(d.type))||ds.find(d=>/smartphone/i.test(d.type)));if(d)tries.push(d.id);else slog(SP.devName?`“${SP.devName}” isn’t showing. Open the Spotify app on the iPad and try again.`:'No iPad found. Open the Spotify app on the iPad, play and pause a song, then try again.')}catch(e){slog('Device list failed: '+e.message)}}
   if(!tries.length)slog('No device to play on');for(const dev of tries){try{await spApi('/me/player/play?device_id='+dev,{method:'PUT',body});slog('Spotify accepted play on '+(dev===SP.dev?'in-app player':'Spotify app'));return dev}catch(e){SP.err=e.message;slog('Play refused on '+(dev===SP.dev?'in-app player':'Spotify app')+': '+e.message)}}return null}
 function musicStart(w){const run=++SP.run;
   if(spotId(w.spotify)&&SP.tok){try{SP.player?.activateElement?.()}catch(e){}
@@ -567,9 +570,12 @@ $('#mSpot').onclick=()=>openModal('spot');$('#mSnd').onclick=()=>openModal('soun
 $('#mBak').onclick=backup;$('#mRes').onchange=e=>{const f=e.target.files[0];if(f)restore(f);e.target.value=''};
 
 /* spotify sheet */
-function openSpot(){$('#spRedir').textContent=REDIR;$('#spCid').value=SP.cid;$('#spMode').value=SP.mode;$('#spHostWarn').hidden=location.protocol==='https:'&&!/claude|anthropic/.test(location.hostname);spShow()}
+function openSpot(){spDevList();$('#spRedir').textContent=REDIR;$('#spCid').value=SP.cid;$('#spMode').value=SP.mode;$('#spHostWarn').hidden=location.protocol==='https:'&&!/claude|anthropic/.test(location.hostname);spShow()}
 $('#spCopy').onclick=()=>navigator.clipboard?.writeText(REDIR).then(()=>toast('Copied'),()=>toast('Select and copy the address by hand'));
 $('#spCid').onchange=()=>{SP.cid=$('#spCid').value.trim();ls.set('sp.cid',SP.cid)};
+async function spDevList(){const sel=$('#spDev');if(!SP.tok)return;try{const all=(await spApi('/me/player/devices'))?.devices||[];const names=[...new Set([...all.map(d=>d.name),SP.devName].filter(Boolean))];
+  sel.innerHTML='<option value="">This iPad (automatic)</option>'+names.map(n=>{const d=all.find(x=>x.name===n);return`<option value="${esc(n)}">${esc(n)}${d?' ('+esc(d.type)+')':' (not showing right now)'}</option>`}).join('');sel.value=SP.devName;slog('Found: '+(all.map(d=>d.name+' ('+d.type+')').join(', ')||'none'))}catch(e){slog('Device list failed: '+e.message)}}
+$('#spDevRef').onclick=spDevList;$('#spDev').onchange=()=>{SP.devName=$('#spDev').value;ls.set('sp.dev',SP.devName);toast(SP.devName?'Music will play on '+SP.devName:'Music will play on this iPad')};
 $('#spMode').onchange=()=>{SP.mode=$('#spMode').value;ls.set('sp.mode',SP.mode);spSdk();spShow()};
 $('#spConnect').onclick=()=>{SP.cid=$('#spCid').value.trim();ls.set('sp.cid',SP.cid);spLogin()};
 $('#spOut').onclick=()=>{SP.tok=null;ls.set('sp.tok',null);SP.player?.disconnect();SP.player=null;SP.dev=null;spShow()};
