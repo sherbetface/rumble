@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795281545390,
+ "rev": 1795281555858,
  "W": [
   {
    "photo": "",
@@ -87,16 +87,16 @@
    "px": 50,
    "py": 25,
    "pz": 1,
-   "spotify": "",
+   "spotify": "https://open.spotify.com/track/4mpRznqq7u2pvm1fJHy00s?si=d652c17062f94451",
    "start": 0,
    "bg": "generic",
    "yt": "",
    "ytAudio": false,
    "video": "",
    "id": "w1795281544689",
-   "name": "New Wrestler",
+   "name": "Jey Uso",
    "color": "#16a085",
-   "style": 5
+   "style": 4
   }
  ]
 }
