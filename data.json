@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795302837754,
+ "rev": 1795302880278,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -387,20 +387,20 @@
    "style": 7
   },
   {
-   "photo": "",
+   "photo": "https://raw.githubusercontent.com/sherbetface/rumble/68fdc9ef38279fcf6cae2679af0ec9b3372fb633/photos/w1795302837050.jpg",
    "px": 50,
    "py": 25,
    "pz": 1,
-   "spotify": "",
+   "spotify": "https://open.spotify.com/track/229GBJKu6IVNEtaOgguThi?si=94b3b0ddb2ab48c9",
    "start": 0,
    "bg": "generic",
    "yt": "",
    "ytAudio": false,
    "video": "",
    "id": "w1795302837050",
-   "name": "New Wrestler",
-   "color": "#8e44ad",
-   "style": 2
+   "name": "LA Knight",
+   "color": "#e84393",
+   "style": 3
   }
  ]
 }
