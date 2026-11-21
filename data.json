@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795305366991,
+ "rev": 1795305474799,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -591,11 +591,11 @@
    "style": 5
   },
   {
-   "photo": "",
-   "px": 50,
-   "py": 25,
+   "photo": "https://raw.githubusercontent.com/sherbetface/rumble/60811c06c9952f16a0a236335a828a119ef2d75a/photos/w1795305366290.jpg",
+   "px": 50.925925925925924,
+   "py": 14.506172839506174,
    "pz": 1,
-   "spotify": "",
+   "spotify": "https://open.spotify.com/track/4VgesPZBZhEw2m52MnTnzE?si=a9a9ed00c136496f",
    "start": 0,
    "bg": "generic",
    "yt": "",
@@ -603,13 +603,13 @@
    "video": "",
    "nameDelay": 0,
    "font": "Anton",
-   "look": "auto",
+   "look": "gold",
    "cmode": "one",
    "color2": "#ffffff",
    "id": "w1795305366290",
-   "name": "New Wrestler",
+   "name": "Roman Reigns",
    "color": "#e67e22",
-   "style": 11
+   "style": 13
   }
  ],
  "snd": {}
