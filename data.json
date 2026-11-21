@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795301574613,
+ "rev": 1795301603356,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -223,8 +223,8 @@
    "video": "",
    "id": "w1795301451682",
    "name": "Mankind",
-   "color": "#2e86de",
-   "style": 6
+   "color": "#8e44ad",
+   "style": 7
   }
  ]
 }
