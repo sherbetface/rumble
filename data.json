@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795302283160,
+ "rev": 1795302312214,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -321,6 +321,22 @@
    "name": "WAR GAMES",
    "color": "#2c3e50",
    "style": 7
+  },
+  {
+   "photo": "",
+   "px": 50,
+   "py": 25,
+   "pz": 1,
+   "spotify": "",
+   "start": 0,
+   "bg": "generic",
+   "yt": "",
+   "ytAudio": false,
+   "video": "",
+   "id": "w1795302311512",
+   "name": "New Wrestler",
+   "color": "#d4a017",
+   "style": 9
   }
  ]
 }
