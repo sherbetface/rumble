@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795301875531,
+ "rev": 1795301883131,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -289,6 +289,22 @@
    "name": "Damien Priest",
    "color": "#8e44ad",
    "style": 2
+  },
+  {
+   "photo": "",
+   "px": 50,
+   "py": 25,
+   "pz": 1,
+   "spotify": "",
+   "start": 0,
+   "bg": "generic",
+   "yt": "",
+   "ytAudio": false,
+   "video": "",
+   "id": "w1795301882429",
+   "name": "New Wrestler",
+   "color": "#7f8c8d",
+   "style": 7
   }
  ]
 }
