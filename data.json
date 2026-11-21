@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795302787251,
+ "rev": 1795302811969,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -371,18 +371,18 @@
    "style": 0
   },
   {
-   "photo": "",
+   "photo": "https://raw.githubusercontent.com/sherbetface/rumble/5bb8ab7718c9bf5f19a0d937e93566123987c903/photos/w1795302786550.jpg",
    "px": 50,
    "py": 25,
    "pz": 1,
-   "spotify": "",
+   "spotify": "https://open.spotify.com/track/6rwEbfI8fCjCM5utECkt40?si=2ecef8e4c41b42b8",
    "start": 0,
    "bg": "generic",
    "yt": "",
    "ytAudio": false,
    "video": "",
    "id": "w1795302786550",
-   "name": "New Wrestler",
+   "name": "Oba Femi",
    "color": "#2e86de",
    "style": 1
   }
