@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795302388561,
+ "rev": 1795302419931,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -337,6 +337,22 @@
    "name": "Big E",
    "color": "#8e44ad",
    "style": 5
+  },
+  {
+   "photo": "",
+   "px": 50,
+   "py": 25,
+   "pz": 1,
+   "spotify": "",
+   "start": 0,
+   "bg": "generic",
+   "yt": "",
+   "ytAudio": false,
+   "video": "",
+   "id": "w1795302419229",
+   "name": "New Wrestler",
+   "color": "#c0392b",
+   "style": 10
   }
  ]
 }
