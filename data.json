@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795281449108,
+ "rev": 1795281545390,
  "W": [
   {
    "photo": "",
@@ -81,6 +81,22 @@
    "name": "Seth Rollins",
    "color": "#8e44ad",
    "style": 4
+  },
+  {
+   "photo": "",
+   "px": 50,
+   "py": 25,
+   "pz": 1,
+   "spotify": "",
+   "start": 0,
+   "bg": "generic",
+   "yt": "",
+   "ytAudio": false,
+   "video": "",
+   "id": "w1795281544689",
+   "name": "New Wrestler",
+   "color": "#16a085",
+   "style": 5
   }
  ]
 }
