@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795300127551,
+ "rev": 1795300731182,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -19,11 +19,11 @@
    "style": 0
   },
   {
-   "photo": "",
+   "photo": "https://raw.githubusercontent.com/sherbetface/rumble/9aad74c935fbb4c407a3b290c44faf48a0946103/photos/w2.jpg",
    "px": 50,
    "py": 25,
    "pz": 1,
-   "spotify": "",
+   "spotify": "https://open.spotify.com/track/6ZlK1v8IfJz76Jo31lbSiG?si=5b07277858674c23",
    "start": 0,
    "bg": "generic",
    "yt": "",
