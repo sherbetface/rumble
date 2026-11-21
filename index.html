@@ -163,6 +163,9 @@ input[type=range]{width:100%;accent-color:var(--gold)}
     <div class="row"><button class="btn pri" id="spConnect">Connect Spotify</button><button class="btn" id="spTest">Test</button><button class="btn danger" id="spOut">Disconnect</button></div>
     <button class="btn" data-close>Done</button>
   </div>
+  <h3>Diagnostics</h3>
+  <p class="note">Tap Test, then send a screenshot of this box if it doesn’t play.</p>
+  <pre id="spLog" style="background:#0d0d14;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:13px;white-space:pre-wrap;min-height:60px;-webkit-user-select:text;user-select:text"></pre>
 </div></section>
 
 <!-- sounds -->
@@ -329,6 +332,7 @@ function beatStop(){clearInterval(beat.id);beat.id=0}
 /* ---------- Spotify ---------- */
 const spotId=u=>(String(u).match(/track[/:]([A-Za-z0-9]{22})/)||[])[1];
 const REDIR=location.origin+location.pathname;
+const LOG=[];const slog=m=>{LOG.push(new Date().toTimeString().slice(0,8)+' '+m);if(LOG.length>40)LOG.shift();const el=document.getElementById('spLog');if(el)el.textContent=LOG.join('\n')};
 const SP={cid:ls.get('sp.cid',''),tok:ls.get('sp.tok',null),mode:ls.get('sp.mode','auto'),player:null,dev:null,active:null,err:'',run:0};
 const b64u=buf=>btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 async function spLogin(){if(!SP.cid)return toast('Paste your Client ID first');const v=b64u(crypto.getRandomValues(new Uint8Array(48)));ls.set('sp.ver',v);
@@ -344,13 +348,13 @@ async function spApi(path,opt={}){const t=await spToken();if(!t)throw new Error(
   if(!r.ok){let m=r.status;try{m=(await r.json()).error.message}catch(e){}throw new Error(m)}const x=await r.text();return x?JSON.parse(x):null}
 function spSdk(){if(SP.player||!SP.tok||SP.mode==='app'||document.getElementById('spsdk'))return;
   window.onSpotifyWebPlaybackSDKReady=()=>{const p=new Spotify.Player({name:'Ready 2 Rumble',getOAuthToken:cb=>spToken().then(cb),volume:1});
-    p.addListener('ready',({device_id})=>{SP.dev=device_id;SP.err='';spShow()});p.addListener('not_ready',()=>{SP.dev=null;spShow()});
-    ['initialization_error','authentication_error','account_error','playback_error'].forEach(e=>p.addListener(e,({message})=>{SP.err=message;spShow()}));p.connect();SP.player=p};
+    p.addListener('ready',({device_id})=>{SP.dev=device_id;SP.err='';slog('In-app player ready');spShow()});p.addListener('not_ready',()=>{SP.dev=null;slog('In-app player went offline');spShow()});
+    ['initialization_error','authentication_error','account_error','playback_error'].forEach(e=>p.addListener(e,({message})=>{SP.err=message;slog(e+': '+message);spShow()}));p.connect().then(ok=>slog('In-app player connect: '+ok));SP.player=p};slog('Loading Spotify in-app player…');
   const s=document.createElement('script');s.id='spsdk';s.src='https://sdk.scdn.co/spotify-player.js';document.head.appendChild(s)}
-async function spPlay(w){const id=spotId(w.spotify),body=JSON.stringify({uris:['spotify:track:'+id],position_ms:Math.round((w.start||0)*1000)}),tries=[];
+async function spPlay(w){slog(`Play ${w.name}: track ${spotId(w.spotify)} · mode ${SP.mode} · in-app device ${SP.dev?'ready':'not ready'}`);const id=spotId(w.spotify),body=JSON.stringify({uris:['spotify:track:'+id],position_ms:Math.round((w.start||0)*1000)}),tries=[];
   if(SP.mode!=='app'&&SP.dev)tries.push(SP.dev);
-  if(SP.mode!=='sdk'){try{const ds=((await spApi('/me/player/devices'))?.devices||[]).filter(d=>d.id!==SP.dev);const d=ds.find(d=>d.is_active)||ds.find(d=>/tablet|smartphone/i.test(d.type))||ds[0];if(d)tries.push(d.id)}catch(e){}}
-  for(const dev of tries){try{await spApi('/me/player/play?device_id='+dev,{method:'PUT',body});return dev}catch(e){SP.err=e.message}}return null}
+  if(SP.mode!=='sdk'){try{const all=(await spApi('/me/player/devices'))?.devices||[];slog('Devices Spotify sees: '+(all.map(d=>`${d.name} (${d.type}${d.is_active?', active':''})`).join(', ')||'none'));const ds=all.filter(d=>d.id!==SP.dev);const d=ds.find(d=>d.is_active)||ds.find(d=>/tablet|smartphone/i.test(d.type))||ds[0];if(d)tries.push(d.id)}catch(e){slog('Device list failed: '+e.message)}}
+  if(!tries.length)slog('No device to play on');for(const dev of tries){try{await spApi('/me/player/play?device_id='+dev,{method:'PUT',body});slog('Spotify accepted play on '+(dev===SP.dev?'in-app player':'Spotify app'));return dev}catch(e){SP.err=e.message;slog('Play refused on '+(dev===SP.dev?'in-app player':'Spotify app')+': '+e.message)}}return null}
 function musicStart(w){const run=++SP.run;
   if(spotId(w.spotify)&&SP.tok){try{SP.player?.activateElement?.()}catch(e){}
     spPlay(w).then(dev=>{if(run!==SP.run){if(dev)spApi('/me/player/pause?device_id='+dev,{method:'PUT'}).catch(()=>{});return}
@@ -358,7 +362,7 @@ function musicStart(w){const run=++SP.run;
   else beatStart()}
 function musicStop(){SP.run++;beatStop();if(SP.active){const d=SP.active;SP.active=null;spApi('/me/player/pause?device_id='+d,{method:'PUT'}).catch(()=>{})}}
 async function spShow(){const s=$('#spStatus');if(!s)return;if(!SP.tok){s.className='note';s.textContent='Not connected.';return}
-  let who='';try{who=(await spApi('/me')).display_name}catch(e){}
+  let who='';try{const me=await spApi('/me');who=me.display_name;if(me.product&&me.product!=='premium')slog('Account type: '+me.product+' (Premium needed)')}catch(e){slog('Account check failed: '+e.message)}
   s.className='note ok';s.textContent=`Connected${who?' as '+who:''} ✓ · In-app player: ${SP.mode==='app'?'off':SP.dev?'ready':'starting…'}${SP.err?' · Last error: '+SP.err:''}`}
 
 /* ---------- animated entrance styles ---------- */
