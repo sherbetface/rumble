@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795281555858,
+ "rev": 1795281573589,
  "W": [
   {
    "photo": "",
@@ -83,7 +83,7 @@
    "style": 4
   },
   {
-   "photo": "",
+   "photo": "https://raw.githubusercontent.com/sherbetface/rumble/def35c3c02edc3537379dcb9f0fd86d610681a55/photos/w1795281544689.jpg",
    "px": 50,
    "py": 25,
    "pz": 1,
