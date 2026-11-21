@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795300920907,
+ "rev": 1795300973683,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -115,20 +115,20 @@
    "style": 4
   },
   {
-   "photo": "",
+   "photo": "https://raw.githubusercontent.com/sherbetface/rumble/15b6d0740247d2dcca8310c882de191e2128c245/photos/w1795300920206.jpg",
    "px": 50,
    "py": 25,
    "pz": 1,
-   "spotify": "",
+   "spotify": "https://open.spotify.com/track/3gILDObZFV7LD5pmjSr9zo?si=9704e3eff2db4447",
    "start": 0,
    "bg": "generic",
    "yt": "",
    "ytAudio": false,
    "video": "",
    "id": "w1795300920206",
-   "name": "New Wrestler",
-   "color": "#e67e22",
-   "style": 7
+   "name": "Cody Rhodes",
+   "color": "#2e86de",
+   "style": 3
   }
  ]
 }
