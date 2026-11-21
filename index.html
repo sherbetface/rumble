@@ -147,7 +147,7 @@ input[type=range]{width:100%;accent-color:var(--gold)}
 
 <!-- grown-up menu -->
 <section class="modal" id="menu" hidden><div class="sheet">
-  <h2>Grown-ups <span style="font:700 15px Barlow,sans-serif;color:var(--muted);vertical-align:middle">v1.5</span></h2>
+  <h2>Grown-ups <span style="font:700 15px Barlow,sans-serif;color:var(--muted);vertical-align:middle">v1.7</span></h2>
   <div class="big">
     <button class="btn pri" id="mAdd">➕ Add a wrestler</button>
     <button class="btn" id="mHub">🛠 Admin hub (master list)</button>
@@ -185,7 +185,7 @@ input[type=range]{width:100%;accent-color:var(--gold)}
   </ol>
   <p class="note bad" id="spHostWarn" hidden>Spotify can only connect once this app is running from your GitHub Pages address, not from this preview.</p>
   <label for="spCid">Client ID</label>
-  <input type="text" id="spCid" autocomplete="off" spellcheck="false">
+  <div class="row" style="flex-wrap:nowrap"><input type="text" id="spCid" autocomplete="off" spellcheck="false" style="flex:1"><button class="btn" data-paste="spCid" style="flex:none">📋 Paste</button></div>
   <label for="spMode">Where the music plays</label>
   <select id="spMode">
     <option value="auto">Inside this app, or the Spotify app if that fails (recommended)</option>
@@ -226,24 +226,25 @@ input[type=range]{width:100%;accent-color:var(--gold)}
       <div class="row">
         <a class="btn" id="fSearch" target="_blank" rel="noopener">🔎 Find a photo</a>
         <label class="btn" style="margin:0">🖼️ Choose from Photos<input type="file" id="fPhotoFile" accept="image/*" hidden></label>
+        <button class="btn" id="fPastePhoto">📋 Paste photo</button>
         <button class="btn danger" id="fPhotoDel">Remove</button>
       </div>
-      <div id="paste" contenteditable="true">…or copy a picture and paste it here</div>
-      <input type="url" id="fPhoto" placeholder="…or paste a direct image link">
+      <div id="paste" contenteditable="true" hidden>Press and hold here, then choose Paste</div>
+      <div class="row" style="flex-wrap:nowrap"><input type="url" id="fPhoto" placeholder="…or paste a direct image link" style="flex:1"><button class="btn" data-paste="fPhoto" style="flex:none">📋 Paste</button></div>
     </div>
   </div>
   <p class="note">Find a photo opens an image search. Hold your finger on a picture you like and choose <b>Save to Photos</b> (or <b>Copy</b>), then come back here. Drag the photo above to move it, and use the slider to zoom.</p>
   <label for="fZoom">Zoom</label>
   <input type="range" id="fZoom" min="1" max="3" step="0.05">
   <label for="fSpot">Spotify song link</label>
-  <input type="url" id="fSpot" placeholder="https://open.spotify.com/track/…">
+  <div class="row" style="flex-wrap:nowrap"><input type="url" id="fSpot" placeholder="https://open.spotify.com/track/…" style="flex:1"><button class="btn" data-paste="fSpot" style="flex:none">📋 Paste</button></div>
   <p class="note" id="fSpotNote"></p>
   <label for="fStart">Start the music at (seconds)</label>
   <input type="number" id="fStart" min="0" step="1" inputmode="numeric" style="max-width:160px">
   <label>Entrance video</label>
   <div class="seg" id="fBg"><button data-v="generic">Animated</button><button data-v="youtube">YouTube</button><button data-v="local">Video file</button></div>
   <div id="pGeneric"><div class="styles" id="fStyles"></div><label>Colour</label><div class="sw" id="fColors"></div></div>
-  <div id="pYoutube" hidden><label for="fYt">YouTube link</label><input type="url" id="fYt" placeholder="https://youtu.be/…"><label class="row" style="font-weight:500;margin-top:12px"><input type="checkbox" id="fYtAudio" style="width:26px;height:26px;accent-color:var(--gold)"> Use the video’s own music instead of Spotify</label><p class="note">Unticked: the video plays silently and loops behind the Spotify song. Ticked: the YouTube sound plays and Spotify is skipped. YouTube may sometimes show an advert first.</p></div>
+  <div id="pYoutube" hidden><label for="fYt">YouTube link</label><div class="row" style="flex-wrap:nowrap"><input type="url" id="fYt" placeholder="https://youtu.be/…" style="flex:1"><button class="btn" data-paste="fYt" style="flex:none">📋 Paste</button></div><label class="row" style="font-weight:500;margin-top:12px"><input type="checkbox" id="fYtAudio" style="width:26px;height:26px;accent-color:var(--gold)"> Use the video’s own music instead of Spotify</label><p class="note">Unticked: the video plays silently and loops behind the Spotify song. Ticked: the YouTube sound plays and Spotify is skipped. YouTube may sometimes show an advert first.</p></div>
   </div>
   <div id="pLocal" hidden><label for="fFile">Video file on this device</label><input type="file" id="fFile" accept="video/*"><p class="note" id="fFileNote"></p><p class="note">Video files are too big for the master list, so each device keeps its own. A video file saved on a device always plays instead of the animated or YouTube background.</p><button class="btn danger" id="fFileDel" hidden>Remove video</button></div>
   <div class="actions">
@@ -269,7 +270,7 @@ input[type=range]{width:100%;accent-color:var(--gold)}
   <h3>2 · Connect this device</h3>
   <div class="row"><div style="flex:1;min-width:160px"><label for="ghOwner">GitHub username</label><input type="text" id="ghOwner" autocomplete="off" spellcheck="false" autocapitalize="off"></div><div style="flex:1;min-width:160px"><label for="ghRepo">Folder (repository)</label><input type="text" id="ghRepo" autocomplete="off" spellcheck="false" autocapitalize="off"></div></div>
   <label for="ghTok">Key</label>
-  <input type="password" id="ghTok" autocomplete="off" spellcheck="false" placeholder="github_pat_…">
+  <div class="row" style="flex-wrap:nowrap"><input type="password" id="ghTok" autocomplete="off" spellcheck="false" placeholder="github_pat_…" style="flex:1"><button class="btn" data-paste="ghTok" style="flex:none">📋 Paste</button></div>
   <div class="row" style="margin-top:12px"><button class="btn pri" id="ghConnect">Connect as admin</button><button class="btn danger" id="ghOut">Remove key from this device</button></div>
   <h3>3 · First time only</h3>
   <p class="note">Send this device’s current wrestlers and photos up as the master list. Do this from the device you’ve already set up.</p>
@@ -576,7 +577,7 @@ const STYLES=[
   return(c,w,h,t,dt,col,name)=>{bgFill(c,w,h,'#020206','#0c0c16');c.save();c.globalCompositeOperation='lighter';
    B.forEach(b=>{const a=Math.PI/2+Math.sin(t*.7+b.ph)*.5,bx=b.x*w,L=h*1.4,g=c.createLinearGradient(bx,0,bx+Math.cos(a)*L,Math.sin(a)*L);g.addColorStop(0,'rgba(255,255,255,.45)');g.addColorStop(1,rgba(col,0));c.fillStyle=g;c.beginPath();c.moveTo(bx,-5);c.lineTo(bx+Math.cos(a-.09)*L,Math.sin(a-.09)*L);c.lineTo(bx+Math.cos(a+.09)*L,Math.sin(a+.09)*L);c.fill()});
    for(let n=Math.random()*dt*90|0;n--;)F.push({x:Math.random()*w,y:rnd(.55,.98)*h,l:0});F=F.filter(f=>(f.l+=dt)<.18);F.forEach(f=>{const a=1-f.l/.18,r=10*a+2,g=c.createRadialGradient(f.x,f.y,0,f.x,f.y,r*3);g.addColorStop(0,`rgba(255,255,255,${a})`);g.addColorStop(1,'rgba(255,255,255,0)');c.fillStyle=g;c.fillRect(f.x-r*3,f.y-r*3,r*6,r*6)});c.restore();
-   c.fillStyle='#000';for(let row=0;row<3;row++){const y=h*(.68+row*.11);c.beginPath();c.moveTo(0,h);for(let x=0;x<=w;x+=w/60)c.lineTo(x,y-Math.abs(Math.sin(x*.07+row*3))*h*.03);c.lineTo(w,h);c.fillStyle=`rgba(0,0,0,${.55+row*.15})`;c.fill()}
+   c.fillStyle='#000';for(let row=0;row<3;row++){const y=h*(.68+row*.11);c.beginPath();c.moveTo(0,h);for(let x=0;x<=w;x+=Math.max(4,w/60))c.lineTo(x,y-Math.abs(Math.sin(x*.07+row*3))*h*.03);c.lineTo(w,h);c.fillStyle=`rgba(0,0,0,${.55+row*.15})`;c.fill()}
    drawName(c,w,h,name,t,{fill:['#ffffff','#b9bcc4','#ffffff'],glow:col,dy:-.08})}}}
 ];
 function fitCanvas(cv,cap=1.5){const d=Math.min(devicePixelRatio||1,cap),w=cv.clientWidth,h=cv.clientHeight;if(cv.width!==Math.round(w*d)||cv.height!==Math.round(h*d)){cv.width=Math.round(w*d);cv.height=Math.round(h*d)}const c=cv.getContext('2d');c.setTransform(d,0,0,d,0,0);return[c,w,h]}
@@ -663,7 +664,7 @@ async function entrance(w){ac();const st=$('#stage');st.hidden=false;startedAt=p
   if(id){$('#yt').innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${id}&playsinline=1&rel=0" allow="autoplay; encrypted-media"></iframe>`;runFx(w);return}
   runFx(w)}
 function runFx(w){const cv=$('#fx'),draw=STYLES[w.style||0].make();let last=performance.now();cancelAnimationFrame(raf);
-  const loop=ms=>{const[c,cw,ch]=fitCanvas(cv);const dt=Math.min(.05,(ms-last)/1000);last=ms;draw(c,cw,ch,(ms-startedAt)/1000,dt,w.color,w.name);raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop)}
+  const loop=ms=>{const[c,cw,ch]=fitCanvas(cv);const dt=Math.min(.05,(ms-last)/1000);last=ms;if(cw>8&&ch>8)draw(c,cw,ch,(ms-startedAt)/1000,dt,w.color,w.name);raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop)}
 function stop(){clearTimeout(cdT);cancelAnimationFrame(raf);musicStop();const v=$('#vid');v.pause();v.removeAttribute('src');v.load();v.hidden=true;if(vidURL){URL.revokeObjectURL(vidURL);vidURL=''}
   clearTimeout(ytChk);try{ytP?.destroy()}catch(e){}ytP=null;$('#ytSound').hidden=true;$('#yt').innerHTML='';$('#stage').hidden=true;try{lock?.release()}catch(e){}lock=null;if(stageDone){const f=stageDone;stageDone=null;f()}}
 let stageDone=null,stageLock=false;
@@ -777,14 +778,19 @@ async function openEditor(i,fresh=false){ei=i;isNew=fresh;draft={...W[i]};pendVi
   const rec=await dbGet('videos',draft.id);$('#fFileNote').textContent=rec?`Saved: ${rec.name} (${(rec.blob.size/1048576).toFixed(0)} MB)`:'No video saved yet.';$('#fFileDel').hidden=!rec;
   syncEditor();openModal('editor');startThumbs()}
 function startThumbs(){const cvs=$$('#fStyles canvas'),fns=STYLES.map(s=>s.make()),t0=performance.now();let last=t0;cancelAnimationFrame(thumbRaf);
-  const loop=ms=>{if($('#editor').hidden)return;const dt=Math.min(.05,(ms-last)/1000);last=ms;cvs.forEach((cv,i)=>{const[c,w,h]=fitCanvas(cv,1);fns[i](c,w,h,(ms-t0)/1000+.5,dt,draft.color,$('#fName').value||'Name')});thumbRaf=requestAnimationFrame(loop)};thumbRaf=requestAnimationFrame(loop)}
+  const loop=ms=>{if($('#editor').hidden)return;const dt=Math.min(.05,(ms-last)/1000);last=ms;cvs.forEach((cv,i)=>{const[c,w,h]=fitCanvas(cv,1);if(w<8||h<8)return;fns[i](c,w,h,(ms-t0)/1000+.5,dt,draft.color,$('#fName').value||'Name')});thumbRaf=requestAnimationFrame(loop)};thumbRaf=requestAnimationFrame(loop)}
 async function takeImage(file){if(!file||!file.type.startsWith('image/'))return toast('That isn’t a picture');
   try{const bmp=await createImageBitmap(file),s=Math.min(1,800/Math.max(bmp.width,bmp.height)),cv=document.createElement('canvas');cv.width=bmp.width*s|0;cv.height=bmp.height*s|0;cv.getContext('2d').drawImage(bmp,0,0,cv.width,cv.height);
     pendPhoto=await new Promise(r=>cv.toBlob(r,'image/jpeg',.88));}catch(e){pendPhoto=file}
   dropPhoto=false;if(pvURL)URL.revokeObjectURL(pvURL);pvURL=URL.createObjectURL(pendPhoto);Object.assign(draft,{px:50,py:25,pz:1});$('#fZoom').value=1;showPv()}
 $('#fPhotoFile').onchange=e=>takeImage(e.target.files[0]);
+$('#fPastePhoto').onclick=async()=>{try{const items=await navigator.clipboard.read();for(const it of items){const ty=it.types.find(t=>t.startsWith('image/'));if(ty){takeImage(await it.getType(ty));return}
+    if(it.types.includes('text/plain')){const t=(await(await it.getType('text/plain')).text()).trim();if(/^https?:/.test(t)){$('#fPhoto').value=t;draft.photo=t;dropPhoto=true;pendPhoto=null;showPv();return}}}toast('No picture copied yet. Copy one first.')}
+  catch(e){$('#paste').hidden=false;$('#paste').focus();toast('Press and hold in the dashed box, then choose Paste')}};
+$$('[data-paste]').forEach(b=>b.onclick=async()=>{const inp=document.getElementById(b.dataset.paste);try{const t=(await navigator.clipboard.readText()).trim();if(!t)return toast('Nothing copied yet');inp.value=t;inp.dispatchEvent(new Event('input'));inp.dispatchEvent(new Event('change'))}
+  catch(e){inp.focus();toast('Press and hold in the box, then choose Paste')}});
 $('#paste').addEventListener('paste',e=>{e.preventDefault();const it=[...(e.clipboardData?.items||[])].find(i=>i.type.startsWith('image/'));
-  if(it)takeImage(it.getAsFile());else{const t=e.clipboardData.getData('text');if(/^https?:/.test(t)){$('#fPhoto').value=t.trim();draft.photo=t.trim();dropPhoto=true;pendPhoto=null;showPv()}else toast('No picture found to paste')}$('#paste').textContent='…or copy a picture and paste it here'});
+  if(it)takeImage(it.getAsFile());else{const t=e.clipboardData.getData('text');if(/^https?:/.test(t)){$('#fPhoto').value=t.trim();draft.photo=t.trim();dropPhoto=true;pendPhoto=null;showPv()}else toast('No picture found to paste')}$('#paste').textContent='Press and hold here, then choose Paste';$('#paste').hidden=true});
 $('#fPhoto').onchange=()=>{draft.photo=$('#fPhoto').value.trim();if(draft.photo){dropPhoto=true;pendPhoto=null}showPv()};
 $('#fPhotoDel').onclick=()=>{draft.photo='';$('#fPhoto').value='';pendPhoto=null;dropPhoto=true;showPv()};
 $('#fZoom').oninput=()=>{draft.pz=+$('#fZoom').value;showPv()};
