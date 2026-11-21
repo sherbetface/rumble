@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795302419931,
+ "rev": 1795302550270,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -339,20 +339,20 @@
    "style": 5
   },
   {
-   "photo": "",
+   "photo": "https://raw.githubusercontent.com/sherbetface/rumble/c05b4533e46ca13113abbad47aee8162c5c0c831/photos/w1795302419229.jpg",
    "px": 50,
-   "py": 25,
+   "py": 4.938271604938272,
    "pz": 1,
-   "spotify": "",
+   "spotify": "https://open.spotify.com/track/35bgx24EQeW7IiA4nFXivH?si=4bad4459f2834562",
    "start": 0,
    "bg": "generic",
    "yt": "",
    "ytAudio": false,
    "video": "",
    "id": "w1795302419229",
-   "name": "New Wrestler",
-   "color": "#c0392b",
-   "style": 10
+   "name": "Triple H",
+   "color": "#16a085",
+   "style": 0
   }
  ]
 }
