@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795302550270,
+ "rev": 1795302604653,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -352,6 +352,22 @@
    "id": "w1795302419229",
    "name": "Triple H",
    "color": "#16a085",
+   "style": 0
+  },
+  {
+   "photo": "",
+   "px": 50,
+   "py": 25,
+   "pz": 1,
+   "spotify": "",
+   "start": 0,
+   "bg": "generic",
+   "yt": "",
+   "ytAudio": false,
+   "video": "",
+   "id": "w1795302603950",
+   "name": "New Wrestler",
+   "color": "#e8b400",
    "style": 0
   }
  ]
