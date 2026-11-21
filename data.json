@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795301323269,
+ "rev": 1795301373756,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -51,11 +51,11 @@
    "style": 4
   },
   {
-   "photo": "",
+   "photo": "https://raw.githubusercontent.com/sherbetface/rumble/f095ea9c3483d16c65e06c4b972250e946aa46cd/photos/w4.jpg",
    "px": 50,
    "py": 25,
    "pz": 1,
-   "spotify": "",
+   "spotify": "https://open.spotify.com/track/18i22XLhlvt3DJXHmW9rYI?si=ae90cd8acd434dfa",
    "start": 0,
    "bg": "generic",
    "yt": "",
@@ -63,8 +63,8 @@
    "video": "",
    "id": "w4",
    "name": "Austin Theory",
-   "color": "#2e86de",
-   "style": 3
+   "color": "#16a085",
+   "style": 8
   },
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/0ead872893dda6d8e91bd12149ca7b35403fc6c5/photos/w5.jpg",
