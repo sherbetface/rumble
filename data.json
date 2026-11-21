@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795301757153,
+ "rev": 1795301817466,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -259,20 +259,20 @@
    "style": 8
   },
   {
-   "photo": "",
-   "px": 50,
-   "py": 25,
+   "photo": "https://raw.githubusercontent.com/sherbetface/rumble/91a78c9a8244cb15b5b0740649ed181edc42aa45/photos/w1795301756451.jpg",
+   "px": 50.617283950617285,
+   "py": 0,
    "pz": 1,
-   "spotify": "",
+   "spotify": "https://open.spotify.com/track/2vVKQ9ig7MLeOrMJFg6FN6?si=e70d76f4e96247c4",
    "start": 0,
    "bg": "generic",
    "yt": "",
    "ytAudio": false,
    "video": "",
    "id": "w1795301756451",
-   "name": "New Wrestler",
-   "color": "#e84393",
-   "style": 5
+   "name": "The Undertaker",
+   "color": "#2c3e50",
+   "style": 10
   }
  ]
 }
