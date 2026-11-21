@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795301081679,
+ "rev": 1795301126724,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -131,20 +131,20 @@
    "style": 3
   },
   {
-   "photo": "",
+   "photo": "https://raw.githubusercontent.com/sherbetface/rumble/5c44cf1047509fe8ede41df68500b2cca1cbfc6c/photos/w1795301080978.jpg",
    "px": 50,
    "py": 25,
    "pz": 1,
-   "spotify": "",
+   "spotify": "https://open.spotify.com/track/4efaOZQDP1XwApNaRc7UYu?si=22b1b3b0d0384d5b",
    "start": 0,
    "bg": "generic",
    "yt": "",
    "ytAudio": false,
    "video": "",
    "id": "w1795301080978",
-   "name": "New Wrestler",
-   "color": "#7f8c8d",
-   "style": 8
+   "name": "Randy Orton",
+   "color": "#8e44ad",
+   "style": 10
   }
  ]
 }
