@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795301623870,
+ "rev": 1795301650945,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -227,18 +227,18 @@
    "style": 7
   },
   {
-   "photo": "",
+   "photo": "https://raw.githubusercontent.com/sherbetface/rumble/910e98721a35a927753b54042b056148498711ca/photos/w1795301623168.jpg",
    "px": 50,
    "py": 25,
    "pz": 1,
-   "spotify": "",
+   "spotify": "https://open.spotify.com/track/0zxlxRVprTkjOPTN9kwiUN?si=1b5c9e3f24f74200",
    "start": 0,
    "bg": "generic",
    "yt": "",
    "ytAudio": false,
    "video": "",
    "id": "w1795301623168",
-   "name": "New Wrestler",
+   "name": "Kevin Owens",
    "color": "#8e44ad",
    "style": 3
   }
