@@ -31,6 +31,8 @@ header{position:relative;padding:calc(env(safe-area-inset-top) + 18px) max(4vw,1
 .tile img,.pv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
 .tile .nm{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:12px;font:clamp(28px,4.4vw,46px)/1 Anton,Impact,sans-serif;text-transform:uppercase;color:#fff;text-shadow:0 3px 0 rgba(0,0,0,.5);background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.28),transparent 60%)}
 .tile.press{transform:scale(.95)}
+.tile.add{background:transparent;border:5px dashed #ffffff40;box-shadow:none;padding:0;color:#fff}
+.tile.add .nm{background:none;color:#ffffff90;line-height:1.1}
 .tile::after{content:"";position:absolute;left:0;bottom:0;height:10px;width:0;background:var(--gold)}
 .tile.press::after{animation:hold .55s linear .15s forwards}
 @keyframes hold{to{width:100%}}
@@ -94,10 +96,40 @@ input:focus,button:focus-visible,select:focus{outline:3px solid var(--gold);outl
 code{background:#0d0d14;padding:2px 6px;border-radius:6px;overflow-wrap:anywhere}
 .ok{color:#7be08a}.bad{color:#ff8a7a}
 input[type=range]{width:100%;accent-color:var(--gold)}
+#editor.readonly .sh{display:none!important}#editor.readonly #pLocal{display:block!important}#eRO{display:none}#editor.readonly #eRO{display:block}
+#rrBtn{position:absolute;left:max(3vw,12px);top:calc(env(safe-area-inset-top) + 26px);min-height:44px;padding:0 14px;border-radius:999px;border:2px solid var(--gold);background:#16161f;color:var(--gold);font:17px/1 Anton,Impact,sans-serif;letter-spacing:.03em;touch-action:manipulation}
+.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+.pk{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;background:var(--c);border:4px solid transparent;padding:0;color:#fff}
+.pk img,.rt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.pk .nm,.rt .nm{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:4px;font:15px/1 Anton,Impact,sans-serif;text-transform:uppercase;color:#fff;text-shadow:0 2px 0 #0008}
+.pk.on{border-color:var(--gold)}
+.pk b,.rt b{position:absolute;left:4px;top:4px;background:#000c;color:var(--gold);font:16px/1 Anton,Impact,sans-serif;padding:4px 7px;border-radius:8px}
+#rrList{display:grid;gap:6px;touch-action:pan-y}
+.rr-row{display:flex;align-items:center;gap:10px;padding:6px 8px;border:1px solid var(--line);border-radius:12px;background:#0d0d14}
+.rr-row.drag{border-color:var(--gold);background:#2a2410}
+.rr-row .n{font:22px/1 Anton,Impact,sans-serif;color:var(--gold);width:40px;text-align:center}
+.rr-row .th{position:relative;width:44px;height:44px;border-radius:10px;overflow:hidden;background:var(--c);flex:none}
+.rr-row .th img{width:100%;height:100%;object-fit:cover}
+.rr-row .nmx{flex:1;font-weight:700}
+.rr-row .hd{width:48px;height:44px;display:grid;place-items:center;font-size:24px;color:var(--muted);touch-action:none;cursor:grab}
+.rr-row .x{width:44px;height:44px;border:0;background:none;color:#ff8a7a;font-size:20px}
+#rrMatch{position:fixed;inset:0;z-index:33;background:radial-gradient(120% 70% at 50% 0%,#3a2a10,#0a0a10 65%);overflow-y:auto;padding:calc(env(safe-area-inset-top) + 16px) max(4vw,16px) calc(env(safe-area-inset-bottom) + 16px);display:flex;flex-direction:column;gap:16px}
+#rrMatch[hidden]{display:none!important}
+.rrTop{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.rrTop h2{font:clamp(30px,5vw,48px)/1 Anton,Impact,sans-serif;margin:0;text-transform:uppercase;background:linear-gradient(#fff,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+#rrClk{font:clamp(90px,18vw,190px)/1 Anton,Impact,sans-serif;text-align:center;color:#fff;text-shadow:0 0 40px rgba(255,200,61,.5)}
+#rrMsg{text-align:center;margin:4px 0 0;font:700 21px Barlow,sans-serif;color:var(--gold)}
+.roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px}
+.rt{position:relative;aspect-ratio:1;border-radius:16px;overflow:hidden;background:var(--c);border:3px solid #fff3}
+.rt.up{opacity:.35;filter:grayscale(.7)}
+.rt.mys{background:#1c1c26;display:grid;place-items:center;font:46px/1 Anton,Impact,sans-serif;color:#4a4a5a}
+.rt.mys b{color:#777}
+.rrSnd{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:auto}
+
 </style>
 </head>
 <body>
-<header><h1 id="title">Ready 2 Rumble!</h1><button id="cdBtn" aria-label="Countdown"></button></header>
+<header><button id="rrBtn">🏆 RUMBLE</button><h1 id="title">Ready 2 Rumble!</h1><button id="cdBtn" aria-label="Countdown"></button></header>
 <main id="grid"></main>
 <p class="hint">Grown-ups: hold a wrestler to edit them, or hold the title for settings.</p>
 <nav id="bar"></nav>
@@ -115,9 +147,10 @@ input[type=range]{width:100%;accent-color:var(--gold)}
 
 <!-- grown-up menu -->
 <section class="modal" id="menu" hidden><div class="sheet">
-  <h2>Grown-ups</h2>
+  <h2>Grown-ups <span style="font:700 15px Barlow,sans-serif;color:var(--muted);vertical-align:middle">v1.5</span></h2>
   <div class="big">
     <button class="btn pri" id="mAdd">➕ Add a wrestler</button>
+    <button class="btn" id="mHub">🛠 Admin hub (master list)</button>
     <button class="btn" id="mSpot">🎵 Spotify</button>
     <button class="btn" id="mSnd">🔊 Crowd &amp; bell sounds</button>
     <button class="btn" id="mCd">⏱ Countdown settings</button>
@@ -182,6 +215,8 @@ input[type=range]{width:100%;accent-color:var(--gold)}
 <!-- wrestler editor -->
 <section class="modal" id="editor" hidden><div class="sheet">
   <h2 id="eTitle">Edit wrestler</h2>
+  <p class="note" id="eRO">This wrestler is managed from the admin hub. On this device you can only add a video file. It stays on this device and plays instead of the master video.</p>
+  <div class="sh">
   <label for="fName">Name</label>
   <input type="text" id="fName" autocomplete="off">
   <label>Photo</label>
@@ -209,12 +244,66 @@ input[type=range]{width:100%;accent-color:var(--gold)}
   <div class="seg" id="fBg"><button data-v="generic">Animated</button><button data-v="youtube">YouTube</button><button data-v="local">Video file</button></div>
   <div id="pGeneric"><div class="styles" id="fStyles"></div><label>Colour</label><div class="sw" id="fColors"></div></div>
   <div id="pYoutube" hidden><label for="fYt">YouTube link</label><input type="url" id="fYt" placeholder="https://youtu.be/…"><label class="row" style="font-weight:500;margin-top:12px"><input type="checkbox" id="fYtAudio" style="width:26px;height:26px;accent-color:var(--gold)"> Use the video’s own music instead of Spotify</label><p class="note">Unticked: the video plays silently and loops behind the Spotify song. Ticked: the YouTube sound plays and Spotify is skipped. YouTube may sometimes show an advert first.</p></div>
-  <div id="pLocal" hidden><label for="fFile">Choose a video from this iPad</label><input type="file" id="fFile" accept="video/*"><p class="note" id="fFileNote"></p><button class="btn danger" id="fFileDel" hidden>Remove video</button></div>
+  </div>
+  <div id="pLocal" hidden><label for="fFile">Video file on this device</label><input type="file" id="fFile" accept="video/*"><p class="note" id="fFileNote"></p><p class="note">Video files are too big for the master list, so each device keeps its own. A video file saved on a device always plays instead of the animated or YouTube background.</p><button class="btn danger" id="fFileDel" hidden>Remove video</button></div>
   <div class="actions">
-    <div class="row"><button class="btn" id="eLeft">◀ Move</button><button class="btn" id="eRight">Move ▶</button><button class="btn" id="ePrev">▶ Preview</button></div>
-    <div class="row"><button class="btn danger" id="eDel">Delete</button><button class="btn" id="eCancel">Cancel</button><button class="btn pri" id="eSave">Save</button></div>
+    <div class="row"><span class="sh row"><button class="btn" id="eLeft">◀ Move</button><button class="btn" id="eRight">Move ▶</button></span><button class="btn" id="ePrev">▶ Preview</button></div>
+    <div class="row"><button class="btn danger sh" id="eDel">Delete</button><button class="btn" id="eCancel">Cancel</button><button class="btn pri" id="eSave">Save</button></div>
   </div>
 </div></section>
+
+<!-- admin hub -->
+<section class="modal" id="hub" hidden><div class="sheet">
+  <h2>Admin hub</h2>
+  <p class="note" id="hubStatus"></p>
+  <p class="note">The <b>master list</b> holds every wrestler’s name, photo, Spotify link, start time, style and YouTube link, and lives in your GitHub rumble folder. Every device loads it each time Rumble opens. Only a device with the admin key can change it. That can be this iPad, your iPhone, or a laptop: just open your Rumble address in its browser.</p>
+  <h3>1 · Make a key (once)</h3>
+  <ol class="note">
+    <li>On github.com, tap your <b>profile picture</b> → <b>Settings</b>.</li>
+    <li>Scroll to the bottom of the left-hand menu → <b>Developer settings</b> → <b>Personal access tokens</b> → <b>Fine-grained tokens</b> → <b>Generate new token</b>.</li>
+    <li>Name: <b>Rumble admin</b>. Expiration: pick the longest option.</li>
+    <li>Repository access: <b>Only select repositories</b> → choose <b>rumble</b>.</li>
+    <li>Permissions → Repository permissions → <b>Contents</b> → <b>Read and write</b>.</li>
+    <li>Tap <b>Generate token</b> and copy it. It starts <code>github_pat_</code>.</li>
+  </ol>
+  <h3>2 · Connect this device</h3>
+  <div class="row"><div style="flex:1;min-width:160px"><label for="ghOwner">GitHub username</label><input type="text" id="ghOwner" autocomplete="off" spellcheck="false" autocapitalize="off"></div><div style="flex:1;min-width:160px"><label for="ghRepo">Folder (repository)</label><input type="text" id="ghRepo" autocomplete="off" spellcheck="false" autocapitalize="off"></div></div>
+  <label for="ghTok">Key</label>
+  <input type="password" id="ghTok" autocomplete="off" spellcheck="false" placeholder="github_pat_…">
+  <div class="row" style="margin-top:12px"><button class="btn pri" id="ghConnect">Connect as admin</button><button class="btn danger" id="ghOut">Remove key from this device</button></div>
+  <h3>3 · First time only</h3>
+  <p class="note">Send this device’s current wrestlers and photos up as the master list. Do this from the device you’ve already set up.</p>
+  <button class="btn" id="ghPublish">⬆ Make this device’s list the master</button>
+  <h3>Other devices</h3>
+  <p class="note">Nothing to do. They pick up the master list automatically. To force it now:</p>
+  <button class="btn" id="ghReload">⬇ Reload the master list</button>
+  <div class="actions"><span></span><button class="btn" data-close>Done</button></div>
+</div></section>
+
+<!-- royal rumble setup -->
+<section class="modal" id="rrm" hidden><div class="sheet">
+  <h2>Royal Rumble</h2>
+  <label>Tap the wrestlers who are in the match</label>
+  <div class="row" style="margin-bottom:10px"><button class="btn" id="rrAll">Add everyone</button><button class="btn" id="rrClear">Clear</button></div>
+  <div id="rrPick" class="pick"></div>
+  <label>Entry order <span class="note" id="rrCount"></span></label>
+  <p class="note" id="rrOrderNote">#1 and #2 start the match. Drag ☰ to change the order.</p>
+  <div id="rrList"></div>
+  <label class="row" style="font-weight:700;margin-top:16px"><input type="checkbox" id="rrRand" style="width:26px;height:26px;accent-color:var(--gold)"> 🎲 Mystery order: shuffled secretly, so nobody knows who’s next</label>
+  <label>Time between entrants</label>
+  <div class="seg" data-rr="gap"><button data-v="30">0:30</button><button data-v="60">1:00</button><button data-v="90">1:30</button><button data-v="120">2:00</button></div>
+  <label>Countdown before each entrant</label>
+  <div class="seg" data-rr="cd"><button data-v="5">5 seconds</button><button data-v="10">10 seconds</button></div>
+  <div class="actions"><button class="btn" data-close>Cancel</button><button class="btn pri" id="rrGo">🔔 Start the match</button></div>
+</div></section>
+
+<!-- royal rumble match screen -->
+<section id="rrMatch" hidden>
+  <div class="rrTop"><h2>Royal Rumble</h2><div class="row"><button class="btn" id="rrPause">⏸ Pause</button><button class="btn" id="rrNow">⏭ Next now</button><button class="btn danger" id="rrQuit">✕ Quit match</button></div></div>
+  <div><div id="rrClk">–</div><p id="rrMsg"></p></div>
+  <div id="rrRoster" class="roster"></div>
+  <div class="rrSnd" id="rrSnd"></div>
+</section>
 
 <script>
 {
@@ -231,7 +320,43 @@ const SEED=[['w1','Gunther','#d4a017',0],['w2','Drew McIntyre','#c0392b',1],['w3
 let W=ls.get('entrance.v1',null);
 if(!Array.isArray(W)||!W.length)W=SEED.map(w=>({...w}));
 W=W.map(w=>({...blank,...w}));
-const save=()=>ls.set('entrance.v1',W);
+/* ---------- master list on GitHub (admin hub) ---------- */
+const GH={owner:'',repo:'',token:'',...ls.get('gh',{})};
+let MASTER=ls.get('master.on',false);
+const RO=()=>MASTER&&!GH.token;
+const save=()=>{ls.set('entrance.v1',W);if(MASTER&&GH.token)pushSoon()};
+function ghDefaults(){const m=location.hostname.match(/^([^.]+)\.github\.io$/i);if(m){if(!GH.owner)GH.owner=m[1];if(!GH.repo){const seg=location.pathname.split('/').filter(Boolean)[0];GH.repo=seg&&!seg.includes('.')?seg:`${m[1]}.github.io`}}}
+const ghH=()=>({Accept:'application/vnd.github+json',...(GH.token?{Authorization:'Bearer '+GH.token}:{})});
+const ghURL=p=>`https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${p}`;
+const b64enc=b=>{let s='';for(let i=0;i<b.length;i+=0x8000)s+=String.fromCharCode(...b.subarray(i,i+0x8000));return btoa(s)};
+async function ghSha(p){const r=await fetch(ghURL(p)+'?t='+Date.now(),{headers:ghH(),cache:'no-store'});if(r.status===404)return null;if(!r.ok)throw new Error('GitHub said '+r.status);return(await r.json()).sha}
+async function ghPut(p,bytes,msg,sha){const body={message:msg,content:b64enc(bytes)};if(sha)body.sha=sha;
+  const r=await fetch(ghURL(p),{method:'PUT',headers:{...ghH(),'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!r.ok){let m=r.status;try{m=(await r.json()).message}catch(e){}const er=new Error(m);er.status=r.status;throw er}return r.json()}
+async function ghPutSafe(p,bytes,msg){let sha=await ghSha(p);try{return await ghPut(p,bytes,msg,sha)}catch(e){if(e.status===409||e.status===422){sha=await ghSha(p);return ghPut(p,bytes,msg,sha)}throw e}}
+function masterData(){const rev=Date.now();return{rev,json:JSON.stringify({app:'ready2rumble',rev,W:W.map(({hasPhoto,_pendingVideo,...r})=>r)},null,1)}}
+let pushT=0;const pushSoon=()=>{clearTimeout(pushT);pushT=setTimeout(pushMaster,700)};
+async function pushMaster(){try{const d=masterData();await ghPutSafe('data.json',new TextEncoder().encode(d.json),'Update wrestlers');ls.set('master.rev',d.rev);toast('Saved to the master list ✓')}catch(e){toast('Couldn’t save to the master list: '+e.message)}}
+async function ghPhoto(id,blob){const res=await ghPutSafe(`photos/${id}.jpg`,new Uint8Array(await blob.arrayBuffer()),'Photo');return`https://raw.githubusercontent.com/${GH.owner}/${GH.repo}/${res.commit.sha}/photos/${id}.jpg`}
+async function loadMaster(force){ghDefaults();if(!GH.owner||!GH.repo)return false;let d=null;
+  try{const r=await fetch(ghURL('data.json')+'?t='+Date.now(),{headers:{...ghH(),Accept:'application/vnd.github.raw+json'},cache:'no-store'});if(r.ok)d=await r.json();else if(r.status===404)return false}catch(e){}
+  if(!d){try{const r=await fetch('data.json?t='+Date.now(),{cache:'no-store'});if(r.ok)d=await r.json()}catch(e){}}
+  if(!d||d.app!=='ready2rumble'||!Array.isArray(d.W))return false;
+  MASTER=true;ls.set('master.on',true);if(!force&&d.rev===ls.get('master.rev',0))return true;
+  W=d.W.map(w=>({...blank,...w}));ls.set('entrance.v1',W);ls.set('master.rev',d.rev);render();return true}
+function hubShow(){ghDefaults();$('#ghOwner').value=GH.owner;$('#ghRepo').value=GH.repo;$('#ghTok').value=GH.token?'••••••••••':'';
+  $('#hubStatus').innerHTML=`Master list: <b>${MASTER?'in use':'not set up yet'}</b> · This device: <b>${GH.token?'admin ✓ (changes save to the master)':'viewer'}</b>`;$('#ghPublish').disabled=!GH.token}
+$('#ghConnect').onclick=async()=>{GH.owner=$('#ghOwner').value.trim();GH.repo=$('#ghRepo').value.trim();const t=$('#ghTok').value.trim();if(t&&!t.startsWith('•'))GH.token=t;
+  if(!GH.owner||!GH.repo||!GH.token)return toast('Fill in all three boxes');
+  try{const r=await fetch(`https://api.github.com/repos/${GH.owner}/${GH.repo}`,{headers:ghH()});if(!r.ok)throw new Error(r.status===404?'Folder not found, or the key can’t see it':'GitHub said '+r.status);
+    const j=await r.json();if(j.permissions&&!j.permissions.push)throw new Error('The key can’t write. Check Contents is set to Read and write');
+    ls.set('gh',GH);toast('This device is now the admin ✓');await loadMaster(true);hubShow()}catch(e){GH.token='';toast(e.message)}};
+$('#ghOut').onclick=()=>{GH.token='';ls.set('gh',GH);hubShow();toast('Key removed from this device')};
+$('#ghReload').onclick=async()=>{toast('Loading…');const ok=await loadMaster(true);toast(ok?'Master list loaded ✓':'No master list found yet');hubShow()};
+$('#ghPublish').onclick=async()=>{if(!GH.token)return toast('Connect as admin first');const b=$('#ghPublish');b.disabled=true;b.textContent='Uploading… keep Rumble open';
+  try{for(const w of W)if(w.hasPhoto){const bl=await dbGet('photos',w.id);if(bl){w.photo=await ghPhoto(w.id,bl);w.hasPhoto=false}}
+    const d=masterData();await ghPutSafe('data.json',new TextEncoder().encode(d.json),'Master list');MASTER=true;ls.set('master.on',true);ls.set('master.rev',d.rev);ls.set('entrance.v1',W);render();toast('Master list published ✓')}
+  catch(e){toast('Upload failed: '+e.message)}b.disabled=false;b.textContent='⬆ Make this device’s list the master';hubShow()};
 
 /* ---------- storage on the iPad (videos, photos, custom sounds) ---------- */
 const idb=()=>new Promise((res,rej)=>{const r=indexedDB.open('entrance',2);r.onupgradeneeded=()=>{const d=r.result;['videos','photos','sounds'].forEach(s=>{if(!d.objectStoreNames.contains(s))d.createObjectStore(s)})};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});
@@ -417,7 +542,42 @@ const STYLES=[
    if(b!==lastB){lastB=b;rings.push(0)}rings=rings.map(r=>r+dt*R*.7).filter(r=>r<R);rings.forEach(r=>{c.beginPath();c.arc(0,0,r,0,7);c.strokeStyle=`rgba(255,255,255,${.6*(1-r/R)})`;c.lineWidth=10;c.stroke()});
    const v=c.createRadialGradient(0,0,0,0,0,R*.45);v.addColorStop(0,'rgba(0,0,0,.75)');v.addColorStop(1,'rgba(0,0,0,0)');c.fillStyle=v;c.fillRect(-w,-h,w*2,h*2);c.restore();
    if(b%2===0&&ph<.1){c.fillStyle=`rgba(255,255,255,${.45*(1-ph/.1)})`;c.fillRect(0,0,w,h)}
-   drawName(c,w,h,name,t,{fill:['#ffffff','#ffffff','#fff3c4'],glow:col,pulse:t>.45?.07*Math.pow(1-ph,3):0})}}}
+   drawName(c,w,h,name,t,{fill:['#ffffff','#ffffff','#fff3c4'],glow:col,pulse:t>.45?.07*Math.pow(1-ph,3):0})}}},
+ {label:'Fireworks',make(){let B=[],next=0;
+  return(c,w,h,t,dt,col,name)=>{bgFill(c,w,h,'#02030a',rgba(col,.3));if(t>next){const hue=rnd(0,360);B.push({x:rnd(.1,.9)*w,y:rnd(.12,.45)*h,t0:t,hue,P:Array.from({length:70},()=>{const a=Math.random()*6.283,s=Math.min(w,h)*rnd(.18,.3);return[Math.cos(a)*s,Math.sin(a)*s]})});next=t+rnd(.3,.7)}
+   c.save();c.globalCompositeOperation='lighter';B=B.filter(b=>t-b.t0<1.7);B.forEach(b=>{const a=t-b.t0,k=1-a/1.7,e=1-Math.pow(1-Math.min(a/1.2,1),2);c.fillStyle=`hsla(${b.hue},100%,65%,${k})`;
+    b.P.forEach(([vx,vy])=>{c.beginPath();c.arc(b.x+vx*e,b.y+vy*e+h*.12*a*a,2.6,0,7);c.fill()});if(a<.15){c.fillStyle=`rgba(255,255,255,${(.15-a)*3})`;c.fillRect(0,0,w,h)}});c.restore();
+   drawName(c,w,h,name,t,{fill:['#ffffff','#ffe9a3','#ffc83d'],glow:col,dy:.12})}}},
+ {label:'Glass Shatter',make(){let S=[],last=-9,flash=0;
+  return(c,w,h,t,dt,col,name)=>{bgFill(c,w,h,'#05070d',rgba(col,.4));if(t-last>1.4){last=t;flash=1;for(let i=0;i<46;i++){const a=Math.random()*6.283,s=Math.min(w,h)*rnd(.4,1.1),r=Math.min(w,h)*rnd(.02,.07);S.push({x:w/2,y:h/2,vx:Math.cos(a)*s,vy:Math.sin(a)*s,rot:rnd(0,6),vr:rnd(-6,6),pts:[[0,-r],[r*rnd(.6,1.2),r*rnd(.3,1)],[-r*rnd(.6,1.2),r*rnd(.3,1)]],life:0})}}
+   S=S.filter(s=>(s.life+=dt)<1.6);S.forEach(s=>{s.x+=s.vx*dt;s.y+=s.vy*dt;s.vy+=h*.5*dt;s.rot+=s.vr*dt;const a=1-s.life/1.6;c.save();c.translate(s.x,s.y);c.rotate(s.rot);c.beginPath();s.pts.forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));c.closePath();
+    c.fillStyle=`rgba(200,230,255,${.25*a})`;c.fill();c.strokeStyle=`rgba(255,255,255,${.9*a})`;c.lineWidth=1.5;c.stroke();c.restore()});
+   if(flash>0){c.fillStyle=`rgba(230,245,255,${flash*.45})`;c.fillRect(0,0,w,h);flash-=dt*3}const sh=t-last<.25?rnd(-7,7):0;
+   drawName(c,w,h,name,t,{fill:['#ffffff','#dff3ff','#9fd4ff'],glow:col,sx:sh,sy:sh})}}},
+ {label:'Smoke & Strobes',make(){const P=Array.from({length:26},()=>({x:Math.random(),y:rnd(.45,1.05),r:rnd(.15,.3),s:rnd(.01,.04),a:rnd(.07,.16)}));
+  return(c,w,h,t,dt,col,name)=>{c.fillStyle='#060608';c.fillRect(0,0,w,h);c.save();c.globalCompositeOperation='lighter';
+   for(let i=0;i<5;i++){const on=Math.sin(t*9+i*2.3)>.3,bx=(i+.5)/5*w,a=Math.sin(t*.8+i)*.35;if(!on)continue;const g=c.createLinearGradient(bx,0,bx,h);g.addColorStop(0,i%2?'rgba(255,255,255,.5)':rgba(col,.6));g.addColorStop(1,'rgba(0,0,0,0)');
+    c.fillStyle=g;c.beginPath();c.moveTo(bx,-10);c.lineTo(bx+Math.sin(a-.12)*h*1.2,h);c.lineTo(bx+Math.sin(a+.12)*h*1.2,h);c.fill()}c.restore();
+   P.forEach(p=>{p.x+=p.s*dt;if(p.x>1.3)p.x=-.3;const x=p.x*w,y=p.y*h,r=p.r*w,g=c.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(190,190,205,${p.a})`);g.addColorStop(1,'rgba(190,190,205,0)');c.fillStyle=g;c.beginPath();c.arc(x,y,r,0,7);c.fill()});
+   drawName(c,w,h,name,t,{fill:['#ffffff','#b9bcc4','#ffffff','#8d9099'],glow:col})}}},
+ {label:'Warp Speed',make(){const S=Array.from({length:260},()=>({x:rnd(-1,1),y:rnd(-1,1),z:rnd(.05,1)}));
+  return(c,w,h,t,dt,col,name)=>{c.fillStyle='rgba(2,2,8,1)';c.fillRect(0,0,w,h);const cx=w/2,cy=h/2,F=Math.min(w,h)*.5;
+   const g=c.createRadialGradient(cx,cy,0,cx,cy,F*1.2);g.addColorStop(0,rgba(col,.45));g.addColorStop(1,'rgba(0,0,0,0)');c.fillStyle=g;c.fillRect(0,0,w,h);
+   c.lineCap='round';S.forEach((s,i)=>{const pz=s.z;s.z-=dt*.55;if(s.z<.03){s.x=rnd(-1,1);s.y=rnd(-1,1);s.z=1;return}const x0=cx+s.x/pz*F,y0=cy+s.y/pz*F,x1=cx+s.x/s.z*F,y1=cy+s.y/s.z*F;
+    c.strokeStyle=i%4?`rgba(255,255,255,${1-s.z})`:rgba(col,1-s.z);c.lineWidth=2.5*(1-s.z)+.5;c.beginPath();c.moveTo(x0,y0);c.lineTo(x1,y1);c.stroke()});
+   drawName(c,w,h,name,t,{fill:['#ffffff','#e8ecff','#b8c4ff'],glow:col})}}},
+ {label:'Equaliser',make(){const bt=60/128;
+  return(c,w,h,t,dt,col,name)=>{bgFill(c,w,h,'#05040a',rgba(col,.35));const n=32,bw=w/n,ph=(t%bt)/bt,kick=Math.pow(1-ph,3);
+   for(let i=0;i<n;i++){const v=.25+.35*Math.abs(Math.sin(t*3.1+i*.7)*Math.sin(t*1.7+i*.31))+.3*kick*Math.abs(Math.sin(i*1.3)),bh=v*h*.42;
+    const g=c.createLinearGradient(0,h,0,h-bh);g.addColorStop(0,col);g.addColorStop(1,'#ffffff');c.fillStyle=g;c.fillRect(i*bw+2,h-bh,bw-4,bh);c.globalAlpha=.35;c.fillRect(i*bw+2,0,bw-4,bh*.6);c.globalAlpha=1}
+   c.beginPath();c.arc(w/2,h/2,Math.min(w,h)*(.3+.06*kick),0,7);c.strokeStyle=`rgba(255,255,255,${.3+.5*kick})`;c.lineWidth=8;c.stroke();
+   drawName(c,w,h,name,t,{fill:['#ffffff','#ffffff',rgba(col,1)],glow:col,pulse:t>.45?.05*kick:0})}}},
+ {label:'Camera Flashes',make(){let F=[];const B=[.25,.75].map((x,i)=>({x,ph:i*2}));
+  return(c,w,h,t,dt,col,name)=>{bgFill(c,w,h,'#020206','#0c0c16');c.save();c.globalCompositeOperation='lighter';
+   B.forEach(b=>{const a=Math.PI/2+Math.sin(t*.7+b.ph)*.5,bx=b.x*w,L=h*1.4,g=c.createLinearGradient(bx,0,bx+Math.cos(a)*L,Math.sin(a)*L);g.addColorStop(0,'rgba(255,255,255,.45)');g.addColorStop(1,rgba(col,0));c.fillStyle=g;c.beginPath();c.moveTo(bx,-5);c.lineTo(bx+Math.cos(a-.09)*L,Math.sin(a-.09)*L);c.lineTo(bx+Math.cos(a+.09)*L,Math.sin(a+.09)*L);c.fill()});
+   for(let n=Math.random()*dt*90|0;n--;)F.push({x:Math.random()*w,y:rnd(.55,.98)*h,l:0});F=F.filter(f=>(f.l+=dt)<.18);F.forEach(f=>{const a=1-f.l/.18,r=10*a+2,g=c.createRadialGradient(f.x,f.y,0,f.x,f.y,r*3);g.addColorStop(0,`rgba(255,255,255,${a})`);g.addColorStop(1,'rgba(255,255,255,0)');c.fillStyle=g;c.fillRect(f.x-r*3,f.y-r*3,r*6,r*6)});c.restore();
+   c.fillStyle='#000';for(let row=0;row<3;row++){const y=h*(.68+row*.11);c.beginPath();c.moveTo(0,h);for(let x=0;x<=w;x+=w/60)c.lineTo(x,y-Math.abs(Math.sin(x*.07+row*3))*h*.03);c.lineTo(w,h);c.fillStyle=`rgba(0,0,0,${.55+row*.15})`;c.fill()}
+   drawName(c,w,h,name,t,{fill:['#ffffff','#b9bcc4','#ffffff'],glow:col,dy:-.08})}}}
 ];
 function fitCanvas(cv,cap=1.5){const d=Math.min(devicePixelRatio||1,cap),w=cv.clientWidth,h=cv.clientHeight;if(cv.width!==Math.round(w*d)||cv.height!==Math.round(h*d)){cv.width=Math.round(w*d);cv.height=Math.round(h*d)}const c=cv.getContext('2d');c.setTransform(d,0,0,d,0,0);return[c,w,h]}
 
@@ -460,6 +620,7 @@ const SB=[['bell','🔔','Bell','#ffd75e'],['crowd','👏','Crowd','#8fd3ff'],['
 const fire=k=>PYRO[k]?PYRO[k]():sound(k);
 $('#bar').innerHTML=SB.map(b=>b?`<button class="sb" data-k="${b[0]}" style="--b:${b[3]}"><span>${b[1]}</span>${b[2]}</button>`:'<i class="gap"></i>').join('');
 $('#padR').innerHTML=SB.filter(b=>b&&PYRO[b[0]]).map(b=>`<button class="rb" data-k="${b[0]}" style="--b:${b[3]}" aria-label="${b[2]}"><span>${b[1]}</span></button>`).join('');
+$('#rrSnd').innerHTML=$('#bar').innerHTML;
 $$('[data-k]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();fire(b.dataset.k)}));
 
 /* ---------- grid ---------- */
@@ -472,8 +633,9 @@ function holdable(el,onTap,onHold,ms=700){let tm,sx,sy,held,act=false;const off=
   el.addEventListener('pointermove',e=>{if(act&&Math.hypot(e.clientX-sx,e.clientY-sy)>12)off()});
   el.addEventListener('pointerup',()=>{if(!act)return;off();if(!held&&onTap)onTap()});
   el.addEventListener('pointercancel',off);el.addEventListener('pointerleave',off);el.addEventListener('contextmenu',e=>e.preventDefault())}
-function render(){const g=$('#grid');g.innerHTML=W.map((w,i)=>{const src=photoSrc(w);return`<div class="tile" data-i="${i}" style="--c:${esc(w.color)}">${src?`<img src="${esc(src)}" alt="" style="${imgStyle(w)}">`:''}<div class="nm"${src?' hidden':''}>${esc(w.name||'?')}</div></div>`}).join('');
-  g.querySelectorAll('.tile').forEach(el=>{const i=+el.dataset.i,img=el.querySelector('img');if(img)img.onerror=()=>{img.remove();el.querySelector('.nm').hidden=false};holdable(el,()=>play(W[i]),()=>openEditor(i))})}
+function render(){const g=$('#grid');g.innerHTML=W.map((w,i)=>{const src=photoSrc(w);return`<div class="tile" data-i="${i}" style="--c:${esc(w.color)}">${src?`<img src="${esc(src)}" alt="" style="${imgStyle(w)}">`:''}<div class="nm"${src?' hidden':''}>${esc(w.name||'?')}</div></div>`}).join('')+(RO()?'':'<button class="tile add" id="addTile"><div class="nm">＋<br>ADD</div></button>');
+  $('#addTile')?.addEventListener('click',()=>$('#mAdd').click());
+  g.querySelectorAll('.tile[data-i]').forEach(el=>{const i=+el.dataset.i,img=el.querySelector('img');if(img)img.onerror=()=>{img.remove();el.querySelector('.nm').hidden=false};holdable(el,()=>play(W[i]),()=>openEditor(i))})}
 holdable($('#title'),null,()=>openModal('menu'));
 
 /* ---------- entrance stage ---------- */
@@ -490,19 +652,22 @@ $('#ytSound').addEventListener('click',e=>{e.stopPropagation();try{ytP.unMute();
 function play(w){ac();try{if(spotId(w.spotify)&&SP.tok)SP.player?.activateElement?.()}catch(e){}
   try{navigator.wakeLock?.request('screen').then(l=>lock=l,()=>{})}catch(e){}
   if(CD.on)countdown(w,()=>entrance(w));else entrance(w)}
-async function entrance(w){ac();const st=$('#stage');st.hidden=false;startedAt=performance.now();const ytAud=w.bg==='youtube'&&w.ytAudio&&ytId(w.yt);
+async function entrance(w){ac();const st=$('#stage');st.hidden=false;startedAt=performance.now();
+  const rec=w._pendingVideo?{blob:w._pendingVideo}:await dbGet('videos',w.id);if(st.hidden)return;
+  if(rec){musicStart(w);const v=$('#vid');vidURL=URL.createObjectURL(rec.blob);v.src=vidURL;v.hidden=false;v.play().catch(()=>{});return}
+  const ytAud=w.bg==='youtube'&&w.ytAudio&&ytId(w.yt);
   if(ytAud&&window.YT?.Player){ytSoundPlayer(w,ytAud);runFx(w);return}
   if(ytAud){ytApi().then(()=>{if(!st.hidden)ytSoundPlayer(w,ytAud)});runFx(w);return}
   musicStart(w);
   const id=w.bg==='youtube'&&ytId(w.yt);
   if(id){$('#yt').innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${id}&playsinline=1&rel=0" allow="autoplay; encrypted-media"></iframe>`;runFx(w);return}
-  if(w.bg==='local'){const rec=w._pendingVideo?{blob:w._pendingVideo}:await dbGet('videos',w.id);if(rec&&!st.hidden){const v=$('#vid');vidURL=URL.createObjectURL(rec.blob);v.src=vidURL;v.hidden=false;v.play().catch(()=>{});return}}
   runFx(w)}
 function runFx(w){const cv=$('#fx'),draw=STYLES[w.style||0].make();let last=performance.now();cancelAnimationFrame(raf);
   const loop=ms=>{const[c,cw,ch]=fitCanvas(cv);const dt=Math.min(.05,(ms-last)/1000);last=ms;draw(c,cw,ch,(ms-startedAt)/1000,dt,w.color,w.name);raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop)}
 function stop(){clearTimeout(cdT);cancelAnimationFrame(raf);musicStop();const v=$('#vid');v.pause();v.removeAttribute('src');v.load();v.hidden=true;if(vidURL){URL.revokeObjectURL(vidURL);vidURL=''}
-  clearTimeout(ytChk);try{ytP?.destroy()}catch(e){}ytP=null;$('#ytSound').hidden=true;$('#yt').innerHTML='';$('#stage').hidden=true;try{lock?.release()}catch(e){}lock=null}
-$('#tap').addEventListener('click',()=>{if(performance.now()-startedAt>700)stop()});
+  clearTimeout(ytChk);try{ytP?.destroy()}catch(e){}ytP=null;$('#ytSound').hidden=true;$('#yt').innerHTML='';$('#stage').hidden=true;try{lock?.release()}catch(e){}lock=null;if(stageDone){const f=stageDone;stageDone=null;f()}}
+let stageDone=null,stageLock=false;
+$('#tap').addEventListener('click',()=>{if(!stageLock&&performance.now()-startedAt>700)stop()});
 
 /* ---------- countdown ---------- */
 const CD={on:false,from:5,style:0,snd:'beep',end:'sparks',...ls.get('cd',{})};
@@ -518,7 +683,7 @@ function bigText(c,cw,ch,txt,o){let size=o.size;c.font=`${size}px Anton, Impact,
   const g=c.createLinearGradient(0,-size/2,0,size/2);o.fill.forEach((f,i)=>g.addColorStop(i/(o.fill.length-1),f));c.shadowColor=o.glow;c.shadowBlur=size*.3;
   c.lineWidth=size*(o.neon?.045:.06);c.strokeStyle=o.neon?o.glow:'#000';c.strokeText(txt,0,0);if(o.neon){c.shadowBlur=size*.6;c.strokeText(txt,0,0);c.globalAlpha*=.9}
   c.shadowBlur=0;c.fillStyle=o.neon?'rgba(255,255,255,.85)':g;c.fillText(txt,0,0);c.restore()}
-function cdDraw(c,cw,ch,n,p,t,dt,col,P){const R=Math.hypot(cw,ch),txt=String(n),hit=p<.15?1+(1-p/.15)*1.6:1,al=p>.82?(1-p)/.18:1,sh=p<.15?rnd(-6,6):0;
+function cdDraw(c,cw,ch,n,p,t,dt,col,P,lab){const R=Math.hypot(cw,ch),txt=String(n),hit=p<.15?1+(1-p/.15)*1.6:1,al=p>.82?(1-p)/.18:1,sh=p<.15?rnd(-6,6):0;
   if(CD.style===0){const g=c.createRadialGradient(cw/2,ch/2,0,cw/2,ch/2,R*.6);g.addColorStop(0,rgba(col,.55));g.addColorStop(1,'#000');c.fillStyle=g;c.fillRect(0,0,cw,ch);
     c.save();c.translate(cw/2,ch/2);c.fillStyle='rgba(255,255,255,.05)';for(let i=0;i<12;i++){const a=t*.4+i*.5236;c.beginPath();c.moveTo(0,0);c.arc(0,0,R,a,a+.2);c.fill()}
     c.beginPath();c.arc(0,0,R*.6*p,0,7);c.strokeStyle=`rgba(255,255,255,${.7*(1-p)})`;c.lineWidth=14;c.stroke();c.restore();
@@ -530,17 +695,17 @@ function cdDraw(c,cw,ch,n,p,t,dt,col,P){const R=Math.hypot(cw,ch),txt=String(n),
   else{c.fillStyle='#05010f';c.fillRect(0,0,cw,ch);const hy=ch*.7;c.save();c.strokeStyle=rgba(col,.6);c.lineWidth=2;c.shadowColor=col;c.shadowBlur=10;c.beginPath();
     for(let i=-14;i<=14;i++){c.moveTo(cw/2+i*cw*.03,hy);c.lineTo(cw/2+i*cw*.22,ch)}const f=(t*1.5)%1;for(let k=0;k<10;k++){const q=(k+f)/10,y=hy+(ch-hy)*q*q;c.moveTo(0,y);c.lineTo(cw,y)}c.stroke();c.restore();
     const on=p>.04&&!(p<.3&&Math.random()<.35);if(on)bigText(c,cw,ch,txt,{size:ch*.5,fill:['#fff','#fff'],glow:col,neon:true,alpha:al,y:.5})}
-  bigText(c,cw,ch,'GET READY!',{size:ch*.07,fill:['#ffe9a3','#ffc83d'],glow:'#000',y:.09})}
+  bigText(c,cw,ch,lab||'GET READY!',{size:ch*.07,fill:['#ffe9a3','#ffc83d'],glow:'#000',y:.09})}
 function cdSounds(N){ac();if(CD.snd==='none')return;const t0=now();for(let i=0;i<N;i++){const t=t0+i,last=i===N-1;
   if(CD.snd==='beep')tone(t,'sine',last?1320:880,0,.45,last?.7:.25);
   else{tone(t,'sine',last?110:150,40,1,.5);noiseHit(t,'lowpass',last?3000:1400,last?.8:.5,last?.6:.3)}}}
-function countdown(w,then){ac();clearTimeout(cdT);const st=$('#stage');st.hidden=false;startedAt=performance.now();const N=CD.from,cv=$('#fx'),P=[];let last=performance.now(),lastN=-1;
+function countdown(w,then,o={}){ac();clearTimeout(cdT);const st=$('#stage');st.hidden=false;startedAt=performance.now();const N=o.n||CD.from,cv=$('#fx'),P=[];let last=performance.now(),lastN=-1;
   cdSounds(N);cancelAnimationFrame(raf);
   const loop=ms=>{const[c,cw,ch]=fitCanvas(cv),dt=Math.min(.05,(ms-last)/1000);last=ms;const t=(ms-startedAt)/1000,n=N-Math.floor(t);
     if(n>=1){if(n!==lastN){lastN=n;if(CD.style===1)for(let i=0;i<110;i++){const a=Math.random()*6.283,s=Math.min(cw,ch)*rnd(.5,1.4);P.push({x:cw/2,y:ch/2,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:0,m:rnd(.5,1)})}}
-      cdDraw(c,cw,ch,n,t%1,t,dt,w.color||'#d4a017',P)}
+      cdDraw(c,cw,ch,n,t%1,t,dt,o.color||w.color||'#d4a017',P,o.label)}
     raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop);
-  cdT=setTimeout(()=>{if(st.hidden)return;cancelAnimationFrame(raf);if(CD.end==='bell')sound('bell',false);else if(PYRO[CD.end])PYRO[CD.end]();then()},N*1000)}
+  cdT=setTimeout(()=>{if(st.hidden)return;cancelAnimationFrame(raf);if(o.buzzer){buzzer();setTimeout(()=>sound('cheer',false),250)}else if(CD.end==='bell')sound('bell',false);else if(PYRO[CD.end])PYRO[CD.end]();then()},N*1000)}
 
 /* ---------- keeping saves safe: persistent storage, backup and restore ---------- */
 try{navigator.storage?.persist?.()}catch(e){}
@@ -562,11 +727,11 @@ async function restore(file){try{const len=+(await file.slice(0,10).text()),head
 
 /* ---------- modals ---------- */
 let thumbRaf=0;
-function openModal(id){$$('.modal').forEach(m=>m.hidden=m.id!==id);if(id==='spot')openSpot();if(id==='sounds')renderSounds();if(id==='cdm')cdSync();if(id==='menu')storeInfo()}
+function openModal(id){$$('.modal').forEach(m=>m.hidden=m.id!==id);if(id==='spot')openSpot();if(id==='sounds')renderSounds();if(id==='cdm')cdSync();if(id==='hub')hubShow();if(id==='menu')storeInfo()}
 function closeModals(){$$('.modal').forEach(m=>m.hidden=true);cancelAnimationFrame(thumbRaf)}
 $$('[data-close]').forEach(b=>b.onclick=closeModals);
-$('#mAdd').onclick=()=>{W.push({...blank,id:'w'+Date.now(),name:'New Wrestler',color:COLORS[W.length%COLORS.length],style:W.length%5});save();render();openEditor(W.length-1,true)};
-$('#mSpot').onclick=()=>openModal('spot');$('#mSnd').onclick=()=>openModal('sounds');$('#mCd').onclick=()=>openModal('cdm');
+$('#mAdd').onclick=()=>{if(RO())return toast('Add wrestlers from the admin device');W.push({...blank,id:'w'+Date.now(),name:'New Wrestler',color:COLORS[W.length%COLORS.length],style:W.length%STYLES.length});save();render();openEditor(W.length-1,true)};
+$('#mSpot').onclick=()=>openModal('spot');$('#mHub').onclick=()=>openModal('hub');$('#mSnd').onclick=()=>openModal('sounds');$('#mCd').onclick=()=>openModal('cdm');
 $('#mBak').onclick=backup;$('#mRes').onchange=e=>{const f=e.target.files[0];if(f)restore(f);e.target.value=''};
 
 /* spotify sheet */
@@ -607,8 +772,8 @@ function syncEditor(){$$('#fBg button').forEach(b=>b.classList.toggle('on',b.dat
   else if(!spotId(sp)){sn.className='note bad';sn.textContent='That doesn’t look like a Spotify song link.'}
   else if(!SP.tok){sn.className='note';sn.textContent='✓ Link looks right. It will play once Spotify is connected (hold the title → Spotify).'}
   else{sn.className='note ok';sn.textContent='✓ Link looks right and Spotify is connected.'}showPv()}
-async function openEditor(i,fresh=false){ei=i;isNew=fresh;draft={...W[i]};pendVid=null;dropVid=false;pendPhoto=null;dropPhoto=false;
-  $('#eTitle').textContent=fresh?'Add wrestler':'Edit wrestler';$('#fName').value=draft.name;$('#fPhoto').value=draft.photo;$('#fSpot').value=draft.spotify;$('#fStart').value=draft.start||0;$('#fYt').value=draft.yt;$('#fYtAudio').checked=!!draft.ytAudio;$('#fFile').value='';$('#fZoom').value=draft.pz;
+async function openEditor(i,fresh=false){ei=i;isNew=fresh;draft={...W[i]};pendVid=null;dropVid=false;pendPhoto=null;dropPhoto=false;$('#editor').classList.toggle('readonly',RO());
+  $('#eTitle').textContent=fresh?'Add wrestler':RO()?draft.name:'Edit wrestler';$('#fName').value=draft.name;$('#fPhoto').value=draft.photo;$('#fSpot').value=draft.spotify;$('#fStart').value=draft.start||0;$('#fYt').value=draft.yt;$('#fYtAudio').checked=!!draft.ytAudio;$('#fFile').value='';$('#fZoom').value=draft.pz;
   const rec=await dbGet('videos',draft.id);$('#fFileNote').textContent=rec?`Saved: ${rec.name} (${(rec.blob.size/1048576).toFixed(0)} MB)`:'No video saved yet.';$('#fFileDel').hidden=!rec;
   syncEditor();openModal('editor');startThumbs()}
 function startThumbs(){const cvs=$$('#fStyles canvas'),fns=STYLES.map(s=>s.make()),t0=performance.now();let last=t0;cancelAnimationFrame(thumbRaf);
@@ -633,8 +798,12 @@ $('#fColors').onclick=e=>{const c=e.target.closest('button')?.dataset.c;if(c){dr
 $('#fSpot').oninput=syncEditor;$('#fYtAudio').onchange=()=>{draft.ytAudio=$('#fYtAudio').checked;syncEditor();if(draft.ytAudio)ytApi()};
 $('#fFile').onchange=e=>{const f=e.target.files[0];if(f){pendVid=f;dropVid=false;$('#fFileNote').textContent=`Ready to save: ${f.name} (${(f.size/1048576).toFixed(0)} MB)`}};
 $('#fFileDel').onclick=()=>{dropVid=true;pendVid=null;$('#fFileNote').textContent='Video will be removed when you save.';$('#fFileDel').hidden=true};
-$('#eSave').onclick=async()=>{collect();
-  try{if(pendVid)await dbPut('videos',draft.id,{blob:pendVid,name:pendVid.name});else if(dropVid)await dbDel('videos',draft.id)}catch(e){return toast('Couldn’t save that video on this iPad')}
+$('#eSave').onclick=async()=>{const ro=RO();if(!ro)collect();
+  try{if(pendVid)await dbPut('videos',draft.id,{blob:pendVid,name:pendVid.name});else if(dropVid)await dbDel('videos',draft.id)}catch(e){return toast('Couldn’t save that video on this device')}
+  if(ro){closeModals();return toast('Saved on this device ✓')}
+  if(MASTER&&GH.token&&(pendPhoto||dropPhoto)){const b=$('#eSave');b.disabled=true;b.textContent='Uploading…';
+    try{if(pendPhoto)draft.photo=await ghPhoto(draft.id,pendPhoto);draft.hasPhoto=false;await dbDel('photos',draft.id);delete PH[draft.id]}catch(e){b.disabled=false;b.textContent='Save';return toast('Photo upload failed: '+e.message)}
+    b.disabled=false;b.textContent='Save';W[ei]=draft;save();render();closeModals();return}
   try{if(pendPhoto){await dbPut('photos',draft.id,pendPhoto);if(PH[draft.id])URL.revokeObjectURL(PH[draft.id]);PH[draft.id]=URL.createObjectURL(pendPhoto);draft.hasPhoto=true}
     else if(dropPhoto){await dbDel('photos',draft.id);draft.hasPhoto=false;delete PH[draft.id]}}catch(e){return toast('Couldn’t save that photo')}
   W[ei]=draft;save();render();closeModals()};
@@ -645,9 +814,67 @@ const move=d=>{const j=ei+d;if(j<0||j>=W.length)return;collect();W[ei]={...draft
 $('#eLeft').onclick=()=>move(-1);$('#eRight').onclick=()=>move(1);
 $('#ePrev').onclick=()=>{collect();play({...draft,_pendingVideo:pendVid})};
 
+/* ---------- Royal Rumble ---------- */
+const RRS={ids:[],rand:false,gap:60,cd:10,...ls.get('rr',{})};const rrSave=()=>ls.set('rr',RRS);
+const wById=id=>W.find(w=>w.id===id);
+const tileInner=w=>{const src=photoSrc(w);return src?`<img src="${esc(src)}" alt="" style="${imgStyle(w)}">`:`<div class="nm">${esc(w.name)}</div>`};
+const fmt=s=>{s=Math.max(0,Math.ceil(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+function rrOpen(){RRS.ids=RRS.ids.filter(wById);rrRender();openModal('rrm')}
+$('#rrBtn').onclick=rrOpen;
+let rrDrag=null;
+function rrRender(){$('#rrPick').innerHTML=W.map(w=>{const k=RRS.ids.indexOf(w.id);return`<button class="pk${k>=0?' on':''}" data-id="${w.id}" style="--c:${esc(w.color)}">${tileInner(w)}${k>=0?`<b>${RRS.rand?'✓':k+1}</b>`:''}</button>`}).join('');
+  rrList();$('#rrCount').textContent=`(${RRS.ids.length} wrestler${RRS.ids.length===1?'':'s'})`;$('#rrRand').checked=RRS.rand;
+  $('#rrOrderNote').textContent=RRS.rand?'Mystery order is on. This order gets shuffled secretly when the match starts.':'#1 and #2 start the match. Drag ☰ to change the order.';
+  $$('[data-rr]').forEach(seg=>seg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',String(RRS[seg.dataset.rr])===b.dataset.v)))}
+function rrList(){$('#rrList').innerHTML=RRS.ids.map((id,i)=>{const w=wById(id),src=photoSrc(w);return`<div class="rr-row${rrDrag&&rrDrag.i===i?' drag':''}"><span class="n">${RRS.rand?'?':'#'+(i+1)}</span><span class="th" style="--c:${esc(w.color)}">${src?`<img src="${esc(src)}" alt="">`:''}</span><span class="nmx">${esc(w.name)}</span><button class="x" data-x="${i}" aria-label="Remove">✕</button><span class="hd" data-i="${i}">☰</span></div>`}).join('')||'<p class="note">Nobody yet. Tap wrestlers above.</p>'}
+$('#rrPick').onclick=e=>{const b=e.target.closest('.pk');if(!b)return;const id=b.dataset.id,k=RRS.ids.indexOf(id);if(k>=0)RRS.ids.splice(k,1);else RRS.ids.push(id);rrSave();rrRender()};
+$('#rrAll').onclick=()=>{W.forEach(w=>{if(!RRS.ids.includes(w.id))RRS.ids.push(w.id)});rrSave();rrRender()};
+$('#rrClear').onclick=()=>{RRS.ids=[];rrSave();rrRender()};
+$('#rrRand').onchange=()=>{RRS.rand=$('#rrRand').checked;rrSave();rrRender()};
+$$('[data-rr]').forEach(seg=>seg.onclick=e=>{const b=e.target.closest('button');if(!b)return;RRS[seg.dataset.rr]=+b.dataset.v;rrSave();rrRender()});
+{const L=$('#rrList');
+ L.addEventListener('click',e=>{const x=e.target.closest('[data-x]');if(x){RRS.ids.splice(+x.dataset.x,1);rrSave();rrRender()}});
+ L.addEventListener('pointerdown',e=>{const h=e.target.closest('.hd');if(!h)return;e.preventDefault();rrDrag={i:+h.dataset.i};L.setPointerCapture(e.pointerId);rrList()});
+ L.addEventListener('pointermove',e=>{if(!rrDrag)return;const rows=[...L.querySelectorAll('.rr-row')];let t=0;rows.forEach((r,k)=>{if(k===rrDrag.i)return;const b=r.getBoundingClientRect();if(e.clientY>b.top+b.height/2)t++});
+   if(t!==rrDrag.i){const[x]=RRS.ids.splice(rrDrag.i,1);RRS.ids.splice(t,0,x);rrDrag.i=t;rrList()}});
+ const end=()=>{if(!rrDrag)return;rrDrag=null;rrSave();rrRender()};L.addEventListener('pointerup',end);L.addEventListener('pointercancel',end)}
+function buzzer(){ac();const t=now(),lp=AC.createBiquadFilter(),g=AC.createGain();lp.type='lowpass';lp.frequency.value=2800;
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.5,t+.02);g.gain.setValueAtTime(.5,t+1.3);g.gain.linearRampToValueAtTime(0,t+1.45);lp.connect(g).connect(OUT);
+  [[196,'sawtooth'],[198.5,'square'],[392,'sawtooth'],[98,'square']].forEach(([f,ty])=>{const o=AC.createOscillator();o.type=ty;o.frequency.value=f;o.connect(lp);o.start(t);o.stop(t+1.5)})}
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+let RM=null,rmLock=null;
+const anon={...blank,id:'?',name:'?',color:'#666677',style:0};
+$('#rrGo').onclick=()=>{if(RRS.ids.length<2)return toast('Pick at least 2 wrestlers');ac();try{SP.player?.activateElement?.()}catch(e){}
+  try{navigator.wakeLock?.request('screen').then(l=>rmLock=l,()=>{})}catch(e){}
+  RM={order:RRS.rand?shuffle([...RRS.ids]):[...RRS.ids],next:0,state:'start',deadline:0,paused:false,left:0,bell:false};
+  closeModals();$('#rrMatch').hidden=false;RM.tick=setInterval(rrTick,200);rrDraw();setTimeout(rrEnter,600)};
+function rrEnter(){if(!RM)return;const w=wById(RM.order[RM.next])||anon;RM.next++;RM.state='entrance';rrDraw();stageDone=rrAfter;entrance(w)}
+function rrAfter(){if(!RM)return;if(RM.next>=2&&!RM.bell){RM.bell=true;sound('bell',false)}
+  if(RM.next>=RM.order.length){RM.state='done';rrDraw();return}
+  if(RM.next===1){rrCountdown();return}
+  RM.state='timer';RM.paused=false;RM.deadline=performance.now()+RRS.gap*1000;rrDraw()}
+function rrCountdown(){if(!RM)return;RM.state='countdown';rrDraw();const w=wById(RM.order[RM.next])||anon;stageLock=true;stageDone=null;
+  countdown(w,()=>{stageLock=false;rrEnter()},{n:RRS.cd,label:`ENTRANT #${RM.next+1}`,buzzer:true,color:RRS.rand?'#6b6b80':w.color})}
+function rrTick(){if(!RM||RM.state!=='timer'||RM.paused)return;const left=(RM.deadline-performance.now())/1000;if(left<=RRS.cd){rrCountdown();return}$('#rrClk').textContent=fmt(left)}
+function rrDraw(){if(!RM)return;const tot=RM.order.length,st=RM.state,clk=$('#rrClk'),msg=$('#rrMsg');
+  if(st==='timer'){clk.textContent=fmt(RM.paused?RM.left:(RM.deadline-performance.now())/1000);msg.textContent=RM.paused?'Paused':`until entrant #${RM.next+1} of ${tot}`}
+  else if(st==='countdown'){clk.textContent='GO!';msg.textContent=`Entrant #${RM.next+1} is coming…`}
+  else if(st==='entrance'){clk.textContent='#'+RM.next;msg.textContent='Tap the entrance screen when they’re in the ring'}
+  else if(st==='done'){clk.textContent='ALL IN!';msg.textContent=`All ${tot} entrants are in the ring. Who will win?`}
+  else{clk.textContent='#1';msg.textContent='Here comes the first entrant…'}
+  $('#rrPause').textContent=RM.paused?'▶ Resume':'⏸ Pause';$('#rrPause').disabled=$('#rrNow').disabled=st!=='timer';
+  $('#rrQuit').textContent=st==='done'?'✓ End match':'✕ Quit match';
+  $('#rrRoster').innerHTML=RM.order.map((id,i)=>{const w=wById(id)||anon;if(i<RM.next)return`<div class="rt" style="--c:${esc(w.color)}">${tileInner(w)}<b>${i+1}</b></div>`;
+    if(RRS.rand)return`<div class="rt mys"><b>${i+1}</b>?</div>`;return`<div class="rt up" style="--c:${esc(w.color)}">${tileInner(w)}<b>${i+1}</b></div>`}).join('')}
+$('#rrPause').onclick=()=>{if(!RM||RM.state!=='timer')return;if(RM.paused){RM.deadline=performance.now()+RM.left*1000;RM.paused=false}else{RM.left=(RM.deadline-performance.now())/1000;RM.paused=true}rrDraw()};
+$('#rrNow').onclick=()=>{if(RM?.state==='timer')rrCountdown()};
+function rrQuit(){if(!RM)return;clearInterval(RM.tick);RM=null;stageDone=null;stageLock=false;if(!$('#stage').hidden)stop();$('#rrMatch').hidden=true;try{rmLock?.release()}catch(e){}rmLock=null}
+$('#rrQuit').onclick=()=>{const b=$('#rrQuit');if(RM?.state==='done'||b.dataset.sure){delete b.dataset.sure;rrQuit()}else{b.dataset.sure=1;b.textContent='Tap again to quit';setTimeout(()=>{delete b.dataset.sure;rrDraw()},3000)}};
+
 /* ---------- start ---------- */
+
 render();cdBtnShow();
-(async()=>{await spRedirect();spSdk();if(W.some(w=>w.bg==='youtube'&&w.ytAudio))ytApi();await loadPhotos();await loadSounds();await (document.fonts?.load('100px Anton')||0);render()})();
+(async()=>{await spRedirect();await loadMaster();spSdk();if(W.some(w=>w.bg==='youtube'&&w.ytAudio))ytApi();await loadPhotos();await loadSounds();await (document.fonts?.load('100px Anton')||0);render()})();
 window.__entrance={setCtx(c){AC=c;initOut()},SYN,PYRO};
 }
 </script>
