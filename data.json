@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795281769156,
+ "rev": 1795281836161,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -99,20 +99,20 @@
    "style": 4
   },
   {
-   "photo": "",
-   "px": 50,
-   "py": 25,
+   "photo": "https://raw.githubusercontent.com/sherbetface/rumble/2feeacce99bdfc09d073d471aedb08a2f31d237e/photos/w1795281768449.jpg",
+   "px": 51.23456790123457,
+   "py": 0,
    "pz": 1,
-   "spotify": "",
+   "spotify": "https://open.spotify.com/track/4I7gaOnY8i8RiTM6ytlYyY?si=c7d0384bb9a94a30",
    "start": 0,
    "bg": "generic",
    "yt": "",
    "ytAudio": false,
    "video": "",
    "id": "w1795281768449",
-   "name": "New Wrestler",
+   "name": "Seth Rollins",
    "color": "#e84393",
-   "style": 6
+   "style": 4
   }
  ]
 }
