@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795301603356,
+ "rev": 1795301623870,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -225,6 +225,22 @@
    "name": "Mankind",
    "color": "#8e44ad",
    "style": 7
+  },
+  {
+   "photo": "",
+   "px": 50,
+   "py": 25,
+   "pz": 1,
+   "spotify": "",
+   "start": 0,
+   "bg": "generic",
+   "yt": "",
+   "ytAudio": false,
+   "video": "",
+   "id": "w1795301623168",
+   "name": "New Wrestler",
+   "color": "#8e44ad",
+   "style": 3
   }
  ]
 }
