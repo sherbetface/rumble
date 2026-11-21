@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795301414792,
+ "rev": 1795301446004,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -207,8 +207,8 @@
    "video": "",
    "id": "w1795301377237",
    "name": "The Great Khali",
-   "color": "#e8b400",
-   "style": 1
+   "color": "#16a085",
+   "style": 5
   }
  ]
 }
