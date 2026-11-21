@@ -1,13 +1,13 @@
 {
  "app": "ready2rumble",
- "rev": 1795281169706,
+ "rev": 1795281449108,
  "W": [
   {
    "photo": "",
    "px": 50,
    "py": 25,
    "pz": 1,
-   "spotify": "",
+   "spotify": "https://open.spotify.com/track/58cLpWuaizjIjNSkGxNPgr?si=edd245cd41ec459c",
    "start": 0,
    "bg": "generic",
    "yt": "",
@@ -15,7 +15,7 @@
    "video": "",
    "id": "w1",
    "name": "Gunther",
-   "color": "#d4a017",
+   "color": "#2c3e50",
    "style": 0
   },
   {
