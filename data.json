@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795301270099,
+ "rev": 1795301316766,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -179,20 +179,20 @@
    "style": 6
   },
   {
-   "photo": "",
+   "photo": "https://raw.githubusercontent.com/sherbetface/rumble/8070b723b7241a957bf5fb1ef71f800854826cbe/photos/w1795301269398.jpg",
    "px": 50,
    "py": 25,
    "pz": 1,
-   "spotify": "",
+   "spotify": "https://open.spotify.com/track/1LGv7oHSOGKzpkY3Z8pzc3?si=b628f390a88f4bac",
    "start": 0,
    "bg": "generic",
    "yt": "",
    "ytAudio": false,
    "video": "",
    "id": "w1795301269398",
-   "name": "New Wrestler",
-   "color": "#c0392b",
-   "style": 0
+   "name": "Rey Mysterio",
+   "color": "#e84393",
+   "style": 1
   }
  ]
 }
