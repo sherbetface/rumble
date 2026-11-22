@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795305474799,
+ "rev": 1795306599898,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -612,5 +612,13 @@
    "style": 13
   }
  ],
- "snd": {}
+ "snd": {
+  "crowd": {
+   "src": "yt",
+   "yt": "",
+   "start": 0,
+   "url": "",
+   "name": ""
+  }
+ }
 }
