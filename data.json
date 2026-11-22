@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795352863788,
+ "rev": 1795353097623,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -601,14 +601,14 @@
    "px": 50,
    "py": 25,
    "pz": 1,
-   "spotify": "",
-   "start": 0,
+   "spotify": "https://open.spotify.com/track/6TYQRlRci6AkVrN9a5C7ne?si=aff521fe40bf4927",
+   "start": 63,
    "bg": "generic",
    "yt": "",
    "ytAudio": false,
    "video": "",
    "nameDelay": 0,
-   "font": "Anton",
+   "font": "Special Elite",
    "look": "auto",
    "cmode": "one",
    "color2": "#ffffff",
@@ -618,7 +618,7 @@
    "nameSize": 100,
    "reveal": "none",
    "trans": "slam",
-   "rot": 0,
+   "rot": -1,
    "col1": "",
    "col2": "",
    "sloganSize": 100,
@@ -626,8 +626,8 @@
    "fxAmt": 1,
    "id": "w1795302128048",
    "name": "WAR GAMES",
-   "color": "#2c3e50",
-   "style": 7
+   "color": "#541e00",
+   "style": 15
   },
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/7507e1ad6a1f1e6af0d68bd3a009371c50e0c530/photos/w1795302311512.jpg",
