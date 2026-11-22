@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795308992492,
+ "rev": 1795308995284,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -739,7 +739,7 @@
   "c1": {
    "src": "yt",
    "yt": "https://www.youtube.com/watch?v=e2_xKSj99Hk",
-   "start": 0,
+   "start": 1,
    "url": "",
    "name": "",
    "label": "123",
