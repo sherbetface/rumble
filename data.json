@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795308940505,
+ "rev": 1795308942991,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -737,7 +737,7 @@
    "name": ""
   },
   "c1": {
-   "src": "file",
+   "src": "yt",
    "yt": "",
    "start": 0,
    "url": "",
