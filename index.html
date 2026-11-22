@@ -52,6 +52,9 @@ header{position:relative;padding:calc(env(safe-area-inset-top) + 18px) max(4vw,1
 #yt{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 #yt iframe{position:absolute;top:50%;left:50%;width:max(100vw,177.78vh);height:max(100vh,56.25vw);transform:translate(-50%,-50%);border:0}
 #tap{position:absolute;inset:0;touch-action:manipulation}
+#cdSkip{position:absolute;left:28%;top:26%;width:44%;height:48%;z-index:2;border-radius:32px;touch-action:manipulation;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px}
+#cdSkip span{font:600 13px Barlow,sans-serif;color:#ffffff66}
+#cdSkip:active{background:#ffffff10}
 .pad{position:absolute;bottom:calc(env(safe-area-inset-bottom) + 14px);display:flex;flex-direction:column;flex-wrap:wrap-reverse;align-content:flex-start;max-height:calc(100vh - 40px);gap:10px;z-index:2}
 #padR{right:calc(env(safe-area-inset-right) + 18px)}
 .rb{width:58px;height:58px;border-radius:50%;border:2px solid #fff3;background:var(--b);color:#111;font:15px/1 Anton,Impact,sans-serif;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-shadow:0 0 30px rgba(0,0,0,.6);touch-action:manipulation;opacity:.4;transition:opacity .2s}
@@ -129,18 +132,29 @@ input[type=range]{width:100%;accent-color:var(--gold);height:36px}
 .rr-row .th img{width:100%;height:100%;object-fit:cover}
 .rr-row .nmx{flex:1;font-weight:700}
 .rr-row .x{width:44px;height:44px;border:0;background:none;color:#ff8a7a;font-size:20px}
-#rrMatch{position:fixed;inset:0;z-index:33;background:radial-gradient(120% 70% at 50% 0%,#3a2a10,#0a0a10 65%);overflow-y:auto;padding:calc(env(safe-area-inset-top) + 16px) max(4vw,16px) calc(env(safe-area-inset-bottom) + 16px);display:flex;flex-direction:column;gap:16px}
+#rrMatch{position:fixed;inset:0;z-index:33;background:#050508;overflow-y:auto;padding:calc(env(safe-area-inset-top) + 14px) max(3vw,14px) calc(env(safe-area-inset-bottom) + 12px);display:flex;flex-direction:column;gap:12px;isolation:isolate}
 #rrMatch[hidden]{display:none!important}
-.rrTop{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.rrTop h2{font:clamp(30px,5vw,48px)/1 Anton,Impact,sans-serif;margin:0;text-transform:uppercase;background:linear-gradient(#fff,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
-#rrClk{font:clamp(90px,18vw,190px)/1 Anton,Impact,sans-serif;text-align:center;color:#fff;text-shadow:0 0 40px rgba(255,200,61,.5)}
-#rrMsg{text-align:center;margin:4px 0 0;font:700 21px Barlow,sans-serif;color:var(--gold)}
+#rrFx{position:fixed;inset:0;width:100%;height:100%;z-index:-1}
+.rrTop{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.rrTop h2{font:clamp(24px,4vw,40px)/1 Anton,Impact,sans-serif;margin:0;text-transform:uppercase;background:linear-gradient(#fff,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;text-align:center}
+#rrTimer{flex:1;display:grid;place-items:center}
+#rrSkip{text-align:center;padding:16px 40px;border-radius:30px;touch-action:manipulation;cursor:pointer;min-width:min(80vw,620px)}
+#rrSkip:active{background:#ffffff12}
+#rrLab{font:clamp(22px,3.6vw,38px)/1 Anton,Impact,sans-serif;letter-spacing:.06em;color:var(--gold);margin:0;text-shadow:0 2px 10px #000}
+#rrClk{font:calc(var(--cs,1)*clamp(110px,24vw,280px))/1 Anton,Impact,sans-serif;color:#fff;text-shadow:0 0 40px rgba(255,200,61,.55),0 6px 0 #000}
+#rrMsg{margin:6px 0 0;font:700 21px Barlow,sans-serif;color:#fff;text-shadow:0 2px 8px #000}
+.rrHint{margin:10px 0 0;font-size:14px;color:#ffffffaa}
 .roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px}
-.rt{position:relative;aspect-ratio:1;border-radius:16px;overflow:hidden;background:var(--c);border:3px solid #fff3}
-.rt.up{opacity:.35;filter:grayscale(.7)}
-.rt.mys{background:#1c1c26;display:grid;place-items:center;font:46px/1 Anton,Impact,sans-serif;color:#4a4a5a}
-.rt.mys b{color:#777}
-.rrSnd{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:auto}
+.roster.strip{display:flex;gap:8px;overflow-x:auto;justify-content:center;flex:none}
+.strip .rt{width:62px;flex:none;border-width:2px}.strip .rt b{font-size:12px;padding:2px 5px}.strip .rt .nm{font-size:10px}
+.roster.big{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));max-width:1100px;margin:0 auto;width:100%}
+.rt{position:relative;aspect-ratio:1;border-radius:16px;overflow:hidden;background:var(--c);border:3px solid #fff3;padding:0;color:#fff}
+button.rt{cursor:pointer;transition:transform .12s}button.rt:active{transform:scale(.94)}
+.rt.mys{background:#1c1c26;display:grid;place-items:center;font:28px/1 Anton,Impact,sans-serif;color:#4a4a5a}
+.rt.mys b{color:#999}
+#rrWin{flex:1}
+.rrWinT{font:clamp(30px,5vw,56px)/1.05 Anton,Impact,sans-serif;text-align:center;text-transform:uppercase;margin:10px 0 18px;color:#fff;text-shadow:0 0 30px rgba(255,200,61,.6)}
+.rrSnd{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;flex:none}
 
 </style>
 </head>
@@ -155,6 +169,7 @@ input[type=range]{width:100%;accent-color:var(--gold);height:36px}
   <video id="vid" muted playsinline loop hidden></video>
   <div id="yt"></div>
   <div id="tap"></div>
+  <div id="cdSkip" hidden><span>Tap here to skip</span></div>
   <button class="btn pri" id="ytSound" hidden style="position:absolute;top:calc(env(safe-area-inset-top) + 20px);left:50%;transform:translateX(-50%);z-index:3;min-height:70px;font-size:24px;padding:0 28px">🔊 Tap for sound</button>
   <div class="pad" id="padR"></div>
 </section>
@@ -164,7 +179,7 @@ input[type=range]{width:100%;accent-color:var(--gold);height:36px}
 
 <!-- grown-up menu -->
 <section class="modal" id="menu" hidden><div class="sheet">
-  <h2>Grown-ups <span style="font:700 15px Barlow,sans-serif;color:var(--muted);vertical-align:middle">v1.9</span></h2>
+  <h2>Grown-ups <span style="font:700 15px Barlow,sans-serif;color:var(--muted);vertical-align:middle">v2.0</span></h2>
   <div class="big">
     <button class="btn pri" id="mAdd">➕ Add a wrestler</button>
     <button class="btn" id="mHub">🛠 Admin hub (master list)</button>
@@ -192,9 +207,9 @@ input[type=range]{width:100%;accent-color:var(--gold);height:36px}
   <h2>Countdown</h2>
   <p class="note">Tap the ⏱ button by the title to turn the countdown on or off. Hold it to come back here.</p>
   <label for="cdFrom">Count down from <span class="val" id="cdFromV"></span></label><input type="range" id="cdFrom" min="0" max="10" step="1">
-  <label>Style</label><div class="seg" data-cd="style"><button data-v="0">Slam</button><button data-v="1">Fire burst</button><button data-v="2">Neon</button></div>
+  <label for="cdStyle">Style</label><select id="cdStyle"></select>
   <label>Sound</label><div class="seg" data-cd="snd"><button data-v="beep">Beeps</button><button data-v="drum">Drums</button><button data-v="none">Silent</button></div>
-  <label>When it hits zero</label><div class="seg" data-cd="end"><button data-v="none">Nothing</button><button data-v="bell">Bell</button><button data-v="sparks">Sparks</button><button data-v="rocket">Rockets</button></div>
+  <label for="cdEnd">When it hits zero</label><select id="cdEnd"></select>
   <div class="actions"><button class="btn" id="cdPrev">▶ Preview</button><button class="btn pri" data-close>Done</button></div>
 </div></section>
 
@@ -270,6 +285,8 @@ input[type=range]{width:100%;accent-color:var(--gold);height:36px}
   <label for="fStart">Start the music from <span class="val" id="fStartV">0:00</span></label>
   <div class="row" style="flex-wrap:nowrap"><input type="range" id="fStart" min="0" max="180" step="1" style="flex:1"><button class="btn" id="fMusPrev" style="flex:none">▶ Play</button></div>
   <p class="note">Skip a long opening, as WWE often does.</p>
+  <label for="fReveal">Pyro when the music starts</label>
+  <select id="fReveal"></select>
   <label>Entrance video</label>
   <div class="seg" id="fBg"><button data-v="generic">Animated</button><button data-v="youtube">YouTube</button><button data-v="local">Video file</button></div>
   <div id="pGeneric">
@@ -342,14 +359,25 @@ input[type=range]{width:100%;accent-color:var(--gold);height:36px}
   <input type="range" id="rrGap" min="0" max="180" step="5">
   <label for="rrCd">Countdown <span class="val" id="rrCdV"></span></label>
   <input type="range" id="rrCd" min="0" max="10" step="1">
+  <label for="rrCdStyle">Countdown style</label>
+  <div class="row" style="flex-wrap:nowrap"><select id="rrCdStyle" style="flex:1"></select><button class="btn" id="rrCdPrev" style="flex:none">▶ Try it</button></div>
+  <label for="rrReveal">Pyro when each entrant’s music starts</label>
+  <select id="rrReveal"></select>
+  <h3>Waiting screen (between entrants)</h3>
+  <label for="rrBg">Background</label>
+  <div class="row" style="flex-wrap:nowrap"><select id="rrBg" style="flex:1"></select><input type="color" id="rrBgCol" class="cpick" style="flex:none"></div>
+  <label for="rrClock">Clock size <span class="val" id="rrClockV"></span></label>
+  <input type="range" id="rrClock" min="50" max="150" step="5">
   <div class="actions"><button class="btn" data-close>Cancel</button><button class="btn pri" id="rrGo">🔔 Start the match</button></div>
 </div></section>
 
 <!-- royal rumble match screen -->
 <section id="rrMatch" hidden>
-  <div class="rrTop"><h2>Royal Rumble</h2><div class="row"><button class="btn" id="rrPause">⏸ Pause</button><button class="btn" id="rrNow">⏭ Next now</button><button class="btn danger" id="rrQuit">✕ Quit match</button></div></div>
-  <div><div id="rrClk">–</div><p id="rrMsg"></p></div>
-  <div id="rrRoster" class="roster"></div>
+  <canvas id="rrFx"></canvas>
+  <div class="rrTop"><button class="btn" id="rrPause">⏸ Pause</button><h2>Royal Rumble</h2><button class="btn danger" id="rrQuit">✕ Quit match</button></div>
+  <div id="rrTimer"><div id="rrSkip"><p id="rrLab">NEXT ENTRANT IN</p><div id="rrClk">–</div><p id="rrMsg"></p><p class="rrHint" id="rrHint">Tap the clock to skip to the countdown</p></div></div>
+  <div id="rrWin" hidden><h3 class="rrWinT">Who won? Tap the winner!</h3><div id="rrWinGrid" class="roster big"></div></div>
+  <div id="rrRoster" class="roster strip"></div>
   <div class="rrSnd" id="rrSnd"></div>
 </section>
 
@@ -365,7 +393,7 @@ let toastT;const toast=m=>{const t=$('#toast');t.textContent=m;t.hidden=false;cl
 const COLORS=['#d4a017','#ffd700','#e8b400','#ff9f1a','#e67e22','#ff4d1a','#c0392b','#8b0000','#ff2d75','#e84393','#c56cf0','#8e44ad','#4b2a8a','#2e86de','#00a8ff','#00d2d3','#16a085','#2ecc71','#7dff3a','#ffffff','#bdc3c7','#7f8c8d','#2c3e50','#111111'];
 const FONTS=[['Anton','Block'],['Bebas Neue','Tall'],['Russo One','Sport'],['Black Ops One','Army'],['Bangers','Comic'],['Permanent Marker','Marker'],['Monoton','Neon tube'],['Metal Mania','Metal'],['Creepster','Creepy'],['Nosifer','Drippy']];
 const LOOKS=[['auto','Match the background'],['chrome','Chrome'],['gold','Gold'],['fire','Fire'],['ice','Ice'],['neon','Neon'],['colour','My colour'],['toxic','Toxic'],['blood','Dark red'],['shadow','Shadow']];
-const blank={photo:'',hasPhoto:false,px:50,py:25,pz:1,spotify:'',start:0,bg:'generic',yt:'',ytAudio:false,video:'',nameDelay:0,font:'Anton',look:'auto',cmode:'one',color2:'#ffffff',line1:'',slogan:'',altEvery:3,nameSize:100};
+const blank={photo:'',hasPhoto:false,px:50,py:25,pz:1,spotify:'',start:0,bg:'generic',yt:'',ytAudio:false,video:'',nameDelay:0,font:'Anton',look:'auto',cmode:'one',color2:'#ffffff',line1:'',slogan:'',altEvery:3,nameSize:100,reveal:'none'};
 const SEED=[['w1','Gunther','#d4a017',0],['w2','Drew McIntyre','#c0392b',1],['w3','Bron Breakker','#e8b400',2],['w4','Austin Theory','#2e86de',3],['w5','Seth Rollins','#8e44ad',4]].map(([id,name,color,style])=>({...blank,id,name,color,style}));
 let W=ls.get('entrance.v1',null);
 if(!Array.isArray(W)||!W.length)W=SEED.map(w=>({...w}));
@@ -462,7 +490,8 @@ function rumble({at=0,dur,peak}){const t=now()+at,s=AC.createBufferSource(),f=AC
 function cheerBody(at=0,big=1){roar({at,dur:5.6,att:.3,peak:.75*big});voices({at,n:46,lo:140,hi:330,vow:'ah',dur:3.8,att:.3,peak:.6*big,bend:1.12,bendT:.4,stagger:.3,rel:1.5});
   woos({at:at+.1,n:7,span:3.4,peak:.35});applause({at,dur:5.5,rate:650,peak:.75*big});rumble({at,dur:5.5,peak:.22*big});for(let i=0;i<3;i++)whistle(at+rnd(.4,3.2))}
 const SYN={
-  bell(){const t0=now();for(let k=0;k<3;k++){const t=t0+k*.33,long=k===2?2.6:1.1;[[1,1],[2.42,.55],[3.88,.35],[5.6,.22],[7.3,.12]].forEach(([m,g])=>tone(t,'sine',820*m,0,.32*g,long/(m*.35+.65)));noiseHit(t,'highpass',4000,.25,.03)}},
+  bell(){const t0=now(),N=4,sp=.17;for(let k=0;k<N;k++){const t=t0+k*sp,len=k===N-1?2.9:1.5;noiseHit(t,'bandpass',5200,.55,.012);tone(t,'triangle',3400,0,.12,.025);
+    [[1,1],[1.006,.6],[2.21,.6],[2.76,.45],[3.4,.35],[4.65,.22],[5.9,.14],[7.3,.08]].forEach(([m,g])=>tone(t,'sine',940*m,0,.26*g,len/Math.pow(m,.55)))}},
   crowd(){voices({n:42,lo:100,hi:260,vow:'mix',dur:6,att:1.2,peak:.5,stagger:1.5,rel:1,chat:.75});roar({dur:6.5,att:1.5,peak:.3,vow:'oh'});applause({at:.5,dur:5.5,rate:220,peak:.55});woos({at:1,n:3,span:4,peak:.25});rumble({dur:6.5,peak:.15})},
   cheer(){cheerBody(0,1)},
   boo(){voices({n:38,lo:85,hi:200,vow:'oo',dur:3.4,att:.5,peak:1,bend:.85,bendT:2,stagger:.7,rel:1.1});rumble({dur:4.5,peak:.15})},
@@ -780,8 +809,9 @@ $('#ytSound').addEventListener('click',e=>{e.stopPropagation();try{ytP.unMute();
 function play(w){ac();try{if(spotId(w.spotify)&&SP.tok)SP.player?.activateElement?.()}catch(e){}
   try{navigator.wakeLock?.request('screen').then(l=>lock=l,()=>{})}catch(e){}
   if(CD.on)countdown(w,()=>entrance(w));else entrance(w)}
-async function entrance(w){ac();const st=$('#stage');st.hidden=false;startedAt=performance.now();
-  const rec=w._pendingVideo?{blob:w._pendingVideo}:await dbGet('videos',w.id);if(st.hidden)return;
+function fireReveal(k){if(!k||k==='none'||k==='own')return;if(k==='random')k=pick(SB_PYRO)[0];setTimeout(()=>{if(!$('#stage').hidden&&PYRO[k])PYRO[k]()},150)}
+async function entrance(w,o={}){ac();const st=$('#stage');st.hidden=false;startedAt=performance.now();fireReveal(o.reveal!==undefined?o.reveal:w.reveal);
+  const rec=w._noVideo?null:w._pendingVideo?{blob:w._pendingVideo}:await dbGet('videos',w.id);if(st.hidden)return;
   if(rec){musicStart(w);const v=$('#vid');vidURL=URL.createObjectURL(rec.blob);v.src=vidURL;v.hidden=false;v.play().catch(()=>{});return}
   const ytAud=w.bg==='youtube'&&w.ytAudio&&ytId(w.yt);
   if(ytAud&&window.YT?.Player){ytSoundPlayer(w,ytAud);runFx(w);return}
@@ -798,8 +828,8 @@ function nameOpt(w,t){const delay=+w.nameDelay||0,base=(w.line1||'').trim()||w.n
   if(slo&&tl>=0){const k=Math.floor(tl/ev);text=k%2?slo:base;tl-=k*ev}
   NAMEOPT={delay,tl,text,scale:(+w.nameSize||100)/100,font:w.font||'Anton',look:w.look||'auto',col:colAt(w,t)}}
 function runFx(w){const cv=$('#fx'),draw=STYLES[w.style||0].make();let last=performance.now();cancelAnimationFrame(raf);document.fonts?.load(`40px "${w.font||'Anton'}"`);
-  const loop=ms=>{const[c,cw,ch]=fitCanvas(cv);const dt=Math.max(0,Math.min(.05,(ms-last)/1000)),t=Math.max(0,(ms-startedAt)/1000);last=ms;if(cw>8&&ch>8){nameOpt(w,t);draw(c,cw,ch,t,dt,NAMEOPT.col,w.name)}raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop)}
-function stop(){clearTimeout(cdT);cancelAnimationFrame(raf);musicStop();const v=$('#vid');v.pause();v.removeAttribute('src');v.load();v.hidden=true;if(vidURL){URL.revokeObjectURL(vidURL);vidURL=''}
+  const loop=ms=>{const[c,cw,ch]=fitCanvas(cv);const dt=Math.max(0,Math.min(.05,(ms-last)/1000)),t=Math.max(0,(ms-startedAt)/1000);last=ms;if(cw>8&&ch>8){nameOpt(w,t);draw(c,cw,ch,t,dt,NAMEOPT.col,w.name);if(w.winner&&t>.5){const k=Math.min(1,(t-.5)/.4),sz=ch*.17;c.save();c.translate(cw/2,ch*.78+Math.sin(t*4)*ch*.015);c.rotate(Math.sin(t*3)*.12);c.scale(k*(1+.05*Math.sin(t*8)),k*(1+.05*Math.sin(t*8)));c.font=`${sz}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`;c.textAlign='center';c.textBaseline='middle';c.shadowColor='#ffd24a';c.shadowBlur=40;c.fillText('🏆',0,0);c.restore()}}raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop)}
+function stop(){clearTimeout(cdT);cdFinish=null;$('#cdSkip').hidden=true;cancelAnimationFrame(raf);musicStop();const v=$('#vid');v.pause();v.removeAttribute('src');v.load();v.hidden=true;if(vidURL){URL.revokeObjectURL(vidURL);vidURL=''}
   clearTimeout(ytChk);try{ytP?.destroy()}catch(e){}ytP=null;$('#ytSound').hidden=true;$('#yt').innerHTML='';$('#stage').hidden=true;try{lock?.release()}catch(e){}lock=null;if(stageDone){const f=stageDone;stageDone=null;f()}}
 let stageDone=null,stageLock=false;
 $('#tap').addEventListener('click',()=>{if(!stageLock&&performance.now()-startedAt>700)stop()});
@@ -810,38 +840,65 @@ const saveCD=()=>ls.set('cd',CD);
 let cdT=0;
 function cdBtnShow(){const b=$('#cdBtn');b.classList.toggle('on',CD.on);b.textContent=CD.on?`⏱ ${CD.from}`:'⏱ OFF'}
 holdable($('#cdBtn'),()=>{CD.on=!CD.on;saveCD();cdBtnShow();toast(CD.on?`Countdown on: from ${CD.from}`:'Countdown off')},()=>openModal('cdm'));
-function cdSync(){$('#cdFrom').value=CD.from;$('#cdFromV').textContent=CD.from+'s';$$('[data-cd]').forEach(seg=>seg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',String(CD[seg.dataset.cd])===b.dataset.v)))}
+function cdSync(){$('#cdStyle').value=CD.style;$('#cdEnd').value=CD.end;$('#cdFrom').value=CD.from;$('#cdFromV').textContent=CD.from+'s';$$('[data-cd]').forEach(seg=>seg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',String(CD[seg.dataset.cd])===b.dataset.v)))}
+$('#cdStyle').onchange=()=>{CD.style=+$('#cdStyle').value;saveCD()};$('#cdEnd').onchange=()=>{CD.end=$('#cdEnd').value;saveCD()};
 $('#cdFrom').oninput=()=>{CD.from=+$('#cdFrom').value;saveCD();cdSync();cdBtnShow()};
 $$('[data-cd]').forEach(seg=>seg.onclick=e=>{const b=e.target.closest('button');if(!b)return;const k=seg.dataset.cd;CD[k]=k==='from'||k==='style'?+b.dataset.v:b.dataset.v;saveCD();cdSync();cdBtnShow()});
-$('#cdPrev').onclick=()=>{closeModals();countdown(W[0]||{color:'#d4a017'},()=>setTimeout(stop,300))};
+$('#cdPrev').onclick=()=>{closeModals();countdown(W[0]||{color:'#d4a017'},()=>setTimeout(stop,300),{n:Math.max(3,CD.from)})};
 function bigText(c,cw,ch,txt,o){let size=o.size;c.font=`${size}px Anton, Impact, sans-serif`;const m=c.measureText(txt).width;if(m>cw*.9){size*=cw*.9/m;c.font=`${size}px Anton, Impact, sans-serif`}
-  c.save();c.globalAlpha=o.alpha??1;c.translate(cw/2+(o.sx||0),ch*(o.y??.5));c.scale(o.scale||1,o.scale||1);c.textAlign='center';c.textBaseline='middle';c.lineJoin='round';
+  c.save();c.globalAlpha=Math.max(0,Math.min(1,o.alpha??1));c.translate(cw/2+(o.sx||0),ch*(o.y??.5));if(o.rot)c.rotate(o.rot);c.scale((o.scale||1)*(o.xs??1),o.scale||1);c.textAlign='center';c.textBaseline='middle';c.lineJoin='round';
   const g=c.createLinearGradient(0,-size/2,0,size/2);o.fill.forEach((f,i)=>g.addColorStop(i/(o.fill.length-1),f));c.shadowColor=o.glow;c.shadowBlur=size*.3;
   c.lineWidth=size*(o.neon?.045:.06);c.strokeStyle=o.neon?o.glow:'#000';c.strokeText(txt,0,0);if(o.neon){c.shadowBlur=size*.6;c.strokeText(txt,0,0);c.globalAlpha*=.9}
   c.shadowBlur=0;c.fillStyle=o.neon?'rgba(255,255,255,.85)':g;c.fillText(txt,0,0);c.restore()}
-function cdDraw(c,cw,ch,n,p,t,dt,col,P,lab){const R=Math.hypot(cw,ch),txt=String(n),hit=p<.15?1+(1-p/.15)*1.6:1,al=p>.82?(1-p)/.18:1,sh=p<.15?rnd(-6,6):0;
-  if(CD.style===0){const g=c.createRadialGradient(cw/2,ch/2,0,cw/2,ch/2,R*.6);g.addColorStop(0,rgba(col,.55));g.addColorStop(1,'#000');c.fillStyle=g;c.fillRect(0,0,cw,ch);
+const CDSTY=['Slam','Fire burst','Neon','Flip','Shatter','Thunder','Spin','Bounce'];
+const easeB=x=>{const n=7.5625,d=2.75;if(x<1/d)return n*x*x;if(x<2/d)return n*(x-=1.5/d)*x+.75;if(x<2.5/d)return n*(x-=2.25/d)*x+.9375;return n*(x-=2.625/d)*x+.984375};
+function cdDraw(c,cw,ch,n,p,t,dt,col,P,lab,S,Z){const R=Math.hypot(cw,ch),txt=String(n),hit=p<.15?1+(1-p/.15)*1.6:1,al=p>.82?(1-p)/.18:1,sh=p<.15?rnd(-6,6):0,sz=ch*.55;
+  if(Z.n!==n){Z.n=n;Z.sh=null;Z.bolt=null;Z.flash=0;Z.dust=false}
+  if(S===0){const g=c.createRadialGradient(cw/2,ch/2,0,cw/2,ch/2,R*.6);g.addColorStop(0,rgba(col,.55));g.addColorStop(1,'#000');c.fillStyle=g;c.fillRect(0,0,cw,ch);
     c.save();c.translate(cw/2,ch/2);c.fillStyle='rgba(255,255,255,.05)';for(let i=0;i<12;i++){const a=t*.4+i*.5236;c.beginPath();c.moveTo(0,0);c.arc(0,0,R,a,a+.2);c.fill()}
     c.beginPath();c.arc(0,0,R*.6*p,0,7);c.strokeStyle=`rgba(255,255,255,${.7*(1-p)})`;c.lineWidth=14;c.stroke();c.restore();
-    bigText(c,cw,ch,txt,{size:ch*.55,fill:['#ffffff','#c6c9d1','#ffffff'],glow:col,scale:hit,alpha:al,sx:sh})}
-  else if(CD.style===1){const g=c.createLinearGradient(0,0,0,ch);g.addColorStop(0,'#0a0000');g.addColorStop(1,'#5a1200');c.fillStyle=g;c.fillRect(0,0,cw,ch);
+    bigText(c,cw,ch,txt,{size:sz,fill:['#ffffff','#c6c9d1','#ffffff'],glow:col,scale:hit,alpha:al,sx:sh})}
+  else if(S===1){const g=c.createLinearGradient(0,0,0,ch);g.addColorStop(0,'#0a0000');g.addColorStop(1,'#5a1200');c.fillStyle=g;c.fillRect(0,0,cw,ch);
     c.save();c.globalCompositeOperation='lighter';for(let i=P.length;i--;){const q=P[i];q.l+=dt;if(q.l>q.m){P.splice(i,1);continue}const ox=q.x,oy=q.y;q.vx*=.97;q.vy=q.vy*.97+ch*.4*dt;q.x+=q.vx*dt;q.y+=q.vy*dt;
       c.strokeStyle=`hsla(${rnd(20,45)},100%,65%,${1-q.l/q.m})`;c.lineWidth=3;c.beginPath();c.moveTo(ox,oy);c.lineTo(q.x,q.y);c.stroke()}c.restore();
-    bigText(c,cw,ch,txt,{size:ch*.55,fill:['#fff6c0','#ffb21e','#e8380d'],glow:'#ff5a00',scale:hit,alpha:al,sx:sh+Math.sin(t*40)*2})}
-  else{c.fillStyle='#05010f';c.fillRect(0,0,cw,ch);const hy=ch*.7;c.save();c.strokeStyle=rgba(col,.6);c.lineWidth=2;c.shadowColor=col;c.shadowBlur=10;c.beginPath();
+    bigText(c,cw,ch,txt,{size:sz,fill:['#fff6c0','#ffb21e','#e8380d'],glow:'#ff5a00',scale:hit,alpha:al,sx:sh+Math.sin(t*40)*2})}
+  else if(S===2){c.fillStyle='#05010f';c.fillRect(0,0,cw,ch);const hy=ch*.7;c.save();c.strokeStyle=rgba(col,.6);c.lineWidth=2;c.shadowColor=col;c.shadowBlur=10;c.beginPath();
     for(let i=-14;i<=14;i++){c.moveTo(cw/2+i*cw*.03,hy);c.lineTo(cw/2+i*cw*.22,ch)}const f=(t*1.5)%1;for(let k=0;k<10;k++){const q=(k+f)/10,y=hy+(ch-hy)*q*q;c.moveTo(0,y);c.lineTo(cw,y)}c.stroke();c.restore();
     const on=p>.04&&!(p<.3&&Math.random()<.35);if(on)bigText(c,cw,ch,txt,{size:ch*.5,fill:['#fff','#fff'],glow:col,neon:true,alpha:al,y:.5})}
+  else if(S===3){const g=c.createRadialGradient(cw/2,ch/2,0,cw/2,ch/2,R*.6);g.addColorStop(0,rgba(col,.4));g.addColorStop(1,'#04040a');c.fillStyle=g;c.fillRect(0,0,cw,ch);
+    c.fillStyle='rgba(255,255,255,.06)';for(let i=0;i<8;i++)c.fillRect(0,ch*(i/8)+((t*60)%(ch/8)),cw,2);
+    const xs=p<.18?Math.sin(ease(p/.18)*Math.PI/2):p>.84?Math.cos(((p-.84)/.16)*Math.PI/2):1;bigText(c,cw,ch,txt,{size:sz,fill:['#ffffff','#e6e6e6','#9aa0aa'],glow:col,xs:Math.max(.02,xs)})}
+  else if(S===4){const g=c.createRadialGradient(cw/2,ch/2,0,cw/2,ch/2,R*.6);g.addColorStop(0,rgba(col,.35));g.addColorStop(1,'#03050a');c.fillStyle=g;c.fillRect(0,0,cw,ch);
+    if(p<.72)bigText(c,cw,ch,txt,{size:sz,fill:['#ffffff','#dff3ff','#9fd4ff'],glow:col,scale:p<.1?1.3-p*3:1});
+    else{if(!Z.sh){Z.flash=1;Z.sh=Array.from({length:46},()=>{const a=Math.random()*6.283,s=ch*rnd(.5,1.4),r=sz*rnd(.04,.1);return{x:cw/2+rnd(-sz*.3,sz*.3),y:ch/2+rnd(-sz*.35,sz*.35),vx:Math.cos(a)*s,vy:Math.sin(a)*s,rot:rnd(0,6),vr:rnd(-8,8),pts:[[0,-r],[r,r*rnd(.3,1)],[-r,r*rnd(.3,1)]]}})}
+      Z.sh.forEach(s=>{s.x+=s.vx*dt;s.y+=s.vy*dt;s.vy+=ch*1.2*dt;s.rot+=s.vr*dt;c.save();c.translate(s.x,s.y);c.rotate(s.rot);c.beginPath();s.pts.forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));c.closePath();c.fillStyle='rgba(220,240,255,.55)';c.fill();c.strokeStyle='#fff';c.lineWidth=1.5;c.stroke();c.restore()})}
+    if(Z.flash>0){c.fillStyle=`rgba(230,245,255,${Z.flash*.5})`;c.fillRect(0,0,cw,ch);Z.flash-=dt*4}}
+  else if(S===5){const g=c.createLinearGradient(0,0,0,ch);g.addColorStop(0,'#020310');g.addColorStop(1,rgba(col,.25));c.fillStyle=g;c.fillRect(0,0,cw,ch);
+    if(!Z.bolt){Z.flash=1;const pts=[[cw/2+rnd(-cw*.2,cw*.2),0]];while(pts.at(-1)[1]<ch*.5){const[x,y]=pts.at(-1);pts.push([x+(cw/2-x)*.25+rnd(-cw*.04,cw*.04),y+ch*rnd(.04,.08)])}Z.bolt=pts}
+    if(p<.3){const a=1-p/.3;c.save();c.lineJoin='round';c.beginPath();Z.bolt.forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));c.strokeStyle=rgba(col,.5*a);c.lineWidth=16;c.stroke();c.strokeStyle=`rgba(255,255,255,${a})`;c.lineWidth=4;c.stroke();c.restore()}
+    if(Z.flash>0){c.fillStyle=`rgba(220,230,255,${Z.flash*.45})`;c.fillRect(0,0,cw,ch);Z.flash-=dt*3}
+    if(p>.05)bigText(c,cw,ch,txt,{size:sz,fill:['#ffffff','#cfe3ff','#7fb0ff'],glow:p<.3?'#ffffff':col,alpha:al,sx:p<.2?rnd(-8,8):0})}
+  else if(S===6){c.fillStyle='#05040c';c.fillRect(0,0,cw,ch);c.save();c.translate(cw/2,ch/2);for(let i=1;i<9;i++){c.rotate(t*(i%2?.6:-.4));c.beginPath();c.arc(0,0,i*R*.06,0,4.2);c.strokeStyle=rgba(col,.12+.05*(i%3));c.lineWidth=10;c.stroke()}c.restore();
+    const e=ease(Math.min(p/.35,1));bigText(c,cw,ch,txt,{size:sz,fill:['#ffffff','#fff3c4','#ffc83d'],glow:col,rot:(1-e)*Math.PI*3,scale:.1+.9*e,alpha:al})}
+  else{const g=c.createLinearGradient(0,0,0,ch);g.addColorStop(0,'#05050c');g.addColorStop(.78,rgba(col,.35));g.addColorStop(.78,'#1a1a22');g.addColorStop(1,'#0a0a10');c.fillStyle=g;c.fillRect(0,0,cw,ch);
+    const k=Math.min(p/.55,1),y=-.35+(.5+.35)*easeB(k);if(!Z.dust&&k>.36){Z.dust=true;Z.puffs=Array.from({length:30},()=>({x:cw/2+rnd(-sz*.35,sz*.35),y:ch*.78,vx:rnd(-1,1)*cw*.25,vy:-ch*rnd(.05,.2),l:0}))}
+    (Z.puffs||[]).forEach(d=>{d.l+=dt;d.x+=d.vx*dt;d.y+=d.vy*dt;d.vx*=.95;const a=Math.max(0,1-d.l/.9),r=20+d.l*60;const gg=c.createRadialGradient(d.x,d.y,0,d.x,d.y,r);gg.addColorStop(0,`rgba(200,190,180,${.35*a})`);gg.addColorStop(1,'rgba(200,190,180,0)');c.fillStyle=gg;c.fillRect(d.x-r,d.y-r,r*2,r*2)});
+    bigText(c,cw,ch,txt,{size:sz,fill:['#ffffff','#ffe9a3','#ffb84d'],glow:col,y,alpha:al})}
   bigText(c,cw,ch,lab||'GET READY!',{size:ch*.07,fill:['#ffe9a3','#ffc83d'],glow:'#000',y:.09})}
 function cdSounds(N){ac();if(CD.snd==='none')return;const t0=now();for(let i=0;i<N;i++){const t=t0+i,last=i===N-1;
   if(CD.snd==='beep')tone(t,'sine',last?1320:880,0,.45,last?.7:.25);
   else{tone(t,'sine',last?110:150,40,1,.5);noiseHit(t,'lowpass',last?3000:1400,last?.8:.5,last?.6:.3)}}}
-function countdown(w,then,o={}){ac();clearTimeout(cdT);const st=$('#stage');st.hidden=false;startedAt=performance.now();const N=o.n??CD.from,cv=$('#fx'),P=[];let last=performance.now(),lastN=-1;
-  cdSounds(N);cancelAnimationFrame(raf);{const[c,cw,ch]=fitCanvas(cv);c.fillStyle='#000';c.fillRect(0,0,cw,ch)}
+let cdFinish=null;
+function countdown(w,then,o={}){ac();clearTimeout(cdT);const st=$('#stage');st.hidden=false;startedAt=performance.now();const N=o.n??CD.from,S=o.style??CD.style,cv=$('#fx'),P=[],Z={};let last=performance.now(),lastN=-1,done=false;
+  const bus=AC.createGain();bus.connect(OUT);DEST=bus;cdSounds(N);DEST=OUT;cancelAnimationFrame(raf);{const[c,cw,ch]=fitCanvas(cv);c.fillStyle='#000';c.fillRect(0,0,cw,ch)}
   const loop=ms=>{const[c,cw,ch]=fitCanvas(cv),dt=Math.max(0,Math.min(.05,(ms-last)/1000));last=ms;const t=Math.max(0,(ms-startedAt)/1000),n=N-Math.floor(t);
-    if(n>=1){if(n!==lastN){lastN=n;if(CD.style===1)for(let i=0;i<110;i++){const a=Math.random()*6.283,s=Math.min(cw,ch)*rnd(.5,1.4);P.push({x:cw/2,y:ch/2,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:0,m:rnd(.5,1)})}}
-      cdDraw(c,cw,ch,n,t%1,t,dt,o.color||w.color||'#d4a017',P,o.label)}
-    raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop);
-  cdT=setTimeout(()=>{if(st.hidden)return;cancelAnimationFrame(raf);{const[c,cw,ch]=fitCanvas(cv);c.fillStyle='#000';c.fillRect(0,0,cw,ch)}if(o.buzzer){buzzer();setTimeout(()=>sound('cheer',false),250)}else if(CD.end==='bell')sound('bell',false);else if(PYRO[CD.end])PYRO[CD.end]();cdT=setTimeout(()=>{if(!st.hidden)then()},1000)},N*1000)}
+    if(n>=1){if(n!==lastN){lastN=n;if(S===1)for(let i=0;i<110;i++){const a=Math.random()*6.283,s=Math.min(cw,ch)*rnd(.5,1.4);P.push({x:cw/2,y:ch/2,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:0,m:rnd(.5,1)})}}
+      cdDraw(c,cw,ch,n,t%1,t,dt,o.color||w.color||'#d4a017',P,o.label,S,Z)}
+    raf=requestAnimationFrame(loop)};if(N>0)raf=requestAnimationFrame(loop);
+  const finish=()=>{if(done||st.hidden)return;done=true;cdFinish=null;clearTimeout(cdT);$('#cdSkip').hidden=true;try{bus.gain.setTargetAtTime(0,AC.currentTime,.02)}catch(e){}cancelAnimationFrame(raf);{const[c,cw,ch]=fitCanvas(cv);c.fillStyle='#000';c.fillRect(0,0,cw,ch)}
+    if(o.buzzer)buzzer();else if(CD.end==='bell')sound('bell',false);else if(PYRO[CD.end])PYRO[CD.end]();cdT=setTimeout(()=>{if(!st.hidden)then()},o.gap??1000)};
+  cdFinish=finish;$('#cdSkip').hidden=N<=0;cdT=setTimeout(finish,N*1000)}
+$('#cdSkip').addEventListener('click',e=>{e.stopPropagation();cdFinish?.()});
 
 /* ---------- keeping saves safe: persistent storage, backup and restore ---------- */
 try{navigator.storage?.persist?.()}catch(e){}
@@ -937,7 +994,7 @@ function syncEditor(){$$('#fBg button').forEach(b=>b.classList.toggle('on',b.dat
   else if(!SP.tok){sn.className='note';sn.textContent='✓ Link looks right. It will play once Spotify is connected (hold the title → Spotify).'}
   else{sn.className='note ok';sn.textContent='✓ Link looks right and Spotify is connected.'}showPv()}
 async function openEditor(i,fresh=false){ei=i;isNew=fresh;draft={...W[i]};pendVid=null;dropVid=false;pendPhoto=null;dropPhoto=false;$('#editor').classList.toggle('readonly',RO());
-  $('#eTitle').textContent=fresh?'Add wrestler':RO()?draft.name:'Edit wrestler';$('#fName').value=draft.name;$('#fPhoto').value=draft.photo;$('#fSpot').value=draft.spotify;$('#fStart').value=draft.start||0;$('#fYt').value=draft.yt;$('#fYtAudio').checked=!!draft.ytAudio;$('#fFile').value='';$('#fZoom').value=draft.pz;$('#fDelay').value=draft.nameDelay||0;$('#fLine1').value=draft.line1||'';$('#fSlogan').value=draft.slogan||'';$('#fAlt').value=draft.altEvery||3;$('#fSize').value=draft.nameSize||100;
+  $('#eTitle').textContent=fresh?'Add wrestler':RO()?draft.name:'Edit wrestler';$('#fName').value=draft.name;$('#fPhoto').value=draft.photo;$('#fSpot').value=draft.spotify;$('#fStart').value=draft.start||0;$('#fYt').value=draft.yt;$('#fYtAudio').checked=!!draft.ytAudio;$('#fFile').value='';$('#fZoom').value=draft.pz;$('#fDelay').value=draft.nameDelay||0;$('#fLine1').value=draft.line1||'';$('#fReveal').value=draft.reveal||'none';$('#fSlogan').value=draft.slogan||'';$('#fAlt').value=draft.altEvery||3;$('#fSize').value=draft.nameSize||100;
   const rec=await dbGet('videos',draft.id);$('#fFileNote').textContent=rec?`Saved: ${rec.name} (${(rec.blob.size/1048576).toFixed(0)} MB)`:'No video saved yet.';$('#fFileDel').hidden=!rec;
   syncEditor();openModal('editor');startThumbs()}
 let lpFn=null,lpSi=-1,lpT0=0;function lpReset(){lpFn=null}
@@ -964,7 +1021,7 @@ $('#fZoom').oninput=()=>{draft.pz=+$('#fZoom').value;showPv()};
 {let drag=null;const pv=$('#pv');pv.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,px:draft.px,py:draft.py};pv.setPointerCapture(e.pointerId)});
  pv.addEventListener('pointermove',e=>{if(!drag)return;const k=100/(pv.clientWidth*draft.pz);draft.px=Math.max(0,Math.min(100,drag.px-(e.clientX-drag.x)*k));draft.py=Math.max(0,Math.min(100,drag.py-(e.clientY-drag.y)*k));$('#pvImg').setAttribute('style',imgStyle(draft))});
  ['pointerup','pointercancel'].forEach(t=>pv.addEventListener(t,()=>drag=null))}
-function collect(){Object.assign(draft,{name:$('#fName').value.trim()||'Wrestler',spotify:$('#fSpot').value.trim(),start:+$('#fStart').value||0,nameDelay:+$('#fDelay').value||0,line1:$('#fLine1').value.trim(),slogan:$('#fSlogan').value.trim(),altEvery:+$('#fAlt').value||3,nameSize:+$('#fSize').value||100,yt:$('#fYt').value.trim(),ytAudio:$('#fYtAudio').checked,photo:$('#fPhoto').value.trim()});return draft}
+function collect(){Object.assign(draft,{name:$('#fName').value.trim()||'Wrestler',spotify:$('#fSpot').value.trim(),start:+$('#fStart').value||0,nameDelay:+$('#fDelay').value||0,line1:$('#fLine1').value.trim(),reveal:$('#fReveal').value,slogan:$('#fSlogan').value.trim(),altEvery:+$('#fAlt').value||3,nameSize:+$('#fSize').value||100,yt:$('#fYt').value.trim(),ytAudio:$('#fYtAudio').checked,photo:$('#fPhoto').value.trim()});return draft}
 $('#fName').oninput=showPv;$('#fBg').onclick=e=>{const v=e.target.closest('button')?.dataset.v;if(v){draft.bg=v;syncEditor()}};
 $('#fStyles').onclick=e=>{const b=e.target.closest('.st');if(b){draft.style=+b.dataset.s;syncEditor()}};
 $('#fCustom').oninput=()=>{draft.color=$('#fCustom').value;syncEditor()};$('#fCustom2').oninput=()=>{draft.color2=$('#fCustom2').value;syncEditor()};
@@ -1008,56 +1065,71 @@ function sortable(list,scroller,move){let d=null;
   list.addEventListener('pointerup',end);list.addEventListener('pointercancel',end)}
 
 /* ---------- Royal Rumble ---------- */
-const RRS={ids:[],rand:false,gap:60,cd:10,...ls.get('rr',{})};const rrSave=()=>ls.set('rr',RRS);
+const RRS={ids:[],rand:false,gap:60,cd:10,cdStyle:0,reveal:'own',bg:0,bgColor:'#d4a017',clock:100,...ls.get('rr',{})};const rrSave=()=>ls.set('rr',RRS);
 const wById=id=>W.find(w=>w.id===id);
 const tileInner=w=>{const src=photoSrc(w);return src?`<img src="${esc(src)}" alt="" style="${imgStyle(w)}">`:`<div class="nm">${esc(w.name)}</div>`};
 const fmt=s=>{s=Math.max(0,Math.ceil(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+const PYRO_OPTS=()=>'<option value="none">None</option>'+SB_PYRO.map(b=>`<option value="${b[0]}">${b[1]} ${b[2]}</option>`).join('')+'<option value="random">🎲 Random</option>';
+$('#rrCdStyle').innerHTML=$('#cdStyle').innerHTML=CDSTY.map((n,i)=>`<option value="${i}">${n}</option>`).join('');
+$('#rrReveal').innerHTML='<option value="own">Each wrestler’s own entrance pyro</option>'+PYRO_OPTS();
+$('#fReveal').innerHTML=PYRO_OPTS();$('#cdEnd').innerHTML='<option value="none">Nothing</option><option value="bell">🔔 Bell</option>'+SB_PYRO.map(b=>`<option value="${b[0]}">${b[1]} ${b[2]}</option>`).join('');
+$('#rrBg').innerHTML='<option value="-1">Plain</option>'+STYLES.map((s,i)=>`<option value="${i}">${s.label}</option>`).join('');
 function rrOpen(){RRS.ids=RRS.ids.filter(wById);rrRender();openModal('rrm')}
 $('#rrBtn').onclick=rrOpen;
 function rrRender(){$('#rrPick').innerHTML=W.map(w=>{const k=RRS.ids.indexOf(w.id);return`<button class="pk${k>=0?' on':''}" data-id="${w.id}" style="--c:${esc(w.color)}">${tileInner(w)}${k>=0?`<b>${RRS.rand?'✓':k+1}</b>`:''}</button>`}).join('');
   rrList();$('#rrCount').textContent=`(${RRS.ids.length} wrestler${RRS.ids.length===1?'':'s'})`;$('#rrRand').checked=RRS.rand;
   $('#rrOrderNote').textContent=RRS.rand?'Mystery order is on. This order gets shuffled secretly when the match starts.':'#1 and #2 start the match. Drag a wrestler up or down to change the order.';
-  $('#rrGap').value=RRS.gap;$('#rrGapV').textContent=fmt(RRS.gap);$('#rrCd').value=RRS.cd;$('#rrCdV').textContent=RRS.cd+'s'}
+  $('#rrGap').value=RRS.gap;$('#rrGapV').textContent=fmt(RRS.gap);$('#rrCd').value=RRS.cd;$('#rrCdV').textContent=RRS.cd+'s';
+  $('#rrCdStyle').value=RRS.cdStyle;$('#rrReveal').value=RRS.reveal;$('#rrBg').value=RRS.bg;$('#rrBgCol').value=RRS.bgColor;$('#rrClock').value=RRS.clock;$('#rrClockV').textContent=RRS.clock+'%'}
 function rrList(){$('#rrList').innerHTML=RRS.ids.map((id,i)=>{const w=wById(id),src=photoSrc(w);return`<div class="rr-row"><span class="n">${RRS.rand?'?':'#'+(i+1)}</span><span class="th" style="--c:${esc(w.color)}">${src?`<img src="${esc(src)}" alt="">`:''}</span><span class="nmx">${esc(w.name)}</span><button class="x" data-x="${i}" aria-label="Remove">✕</button></div>`}).join('')||'<p class="note">Nobody yet. Tap wrestlers above.</p>'}
 $('#rrPick').onclick=e=>{const b=e.target.closest('.pk');if(!b)return;const id=b.dataset.id,k=RRS.ids.indexOf(id);if(k>=0)RRS.ids.splice(k,1);else RRS.ids.push(id);rrSave();rrRender()};
 $('#rrAll').onclick=()=>{W.forEach(w=>{if(!RRS.ids.includes(w.id))RRS.ids.push(w.id)});rrSave();rrRender()};
 $('#rrClear').onclick=()=>{RRS.ids=[];rrSave();rrRender()};
 $('#rrRand').onchange=()=>{RRS.rand=$('#rrRand').checked;rrSave();rrRender()};
 $('#rrGap').oninput=()=>{RRS.gap=+$('#rrGap').value;$('#rrGapV').textContent=fmt(RRS.gap);rrSave()};$('#rrCd').oninput=()=>{RRS.cd=+$('#rrCd').value;$('#rrCdV').textContent=RRS.cd+'s';rrSave()};
+$('#rrCdStyle').onchange=()=>{RRS.cdStyle=+$('#rrCdStyle').value;rrSave()};$('#rrReveal').onchange=()=>{RRS.reveal=$('#rrReveal').value;rrSave()};
+$('#rrBg').onchange=()=>{RRS.bg=+$('#rrBg').value;rrSave()};$('#rrBgCol').oninput=()=>{RRS.bgColor=$('#rrBgCol').value;rrSave()};
+$('#rrClock').oninput=()=>{RRS.clock=+$('#rrClock').value;$('#rrClockV').textContent=RRS.clock+'%';rrSave()};
+$('#rrCdPrev').onclick=()=>{closeModals();countdown({color:'#d4a017'},()=>setTimeout(stop,300),{n:Math.max(3,RRS.cd||3),style:RRS.cdStyle,label:'ENTRANT #3',buzzer:true,gap:2000})};
 $('#rrList').addEventListener('click',e=>{const x=e.target.closest('[data-x]');if(x){RRS.ids.splice(+x.dataset.x,1);rrSave();rrRender()}});
 sortable($('#rrList'),$('#rrm'),(i,to)=>{const[x]=RRS.ids.splice(i,1);RRS.ids.splice(to,0,x);rrSave();rrRender()});
 function buzzer(){ac();const t=now(),lp=AC.createBiquadFilter(),g=AC.createGain();lp.type='lowpass';lp.frequency.value=2800;
   g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.5,t+.02);g.gain.setValueAtTime(.5,t+1.3);g.gain.linearRampToValueAtTime(0,t+1.45);lp.connect(g).connect(OUT);
   [[196,'sawtooth'],[198.5,'square'],[392,'sawtooth'],[98,'square']].forEach(([f,ty])=>{const o=AC.createOscillator();o.type=ty;o.frequency.value=f;o.connect(lp);o.start(t);o.stop(t+1.5)})}
 const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
-let RM=null,rmLock=null;
+let RM=null,rmLock=null,rrRaf=0;
 const anon={...blank,id:'?',name:'?',color:'#666677',style:0};
+const rrReveal=w=>RRS.reveal==='own'?w.reveal:RRS.reveal;
 $('#rrGo').onclick=()=>{if(RRS.ids.length<2)return toast('Pick at least 2 wrestlers');ac();try{SP.player?.activateElement?.()}catch(e){}
   try{navigator.wakeLock?.request('screen').then(l=>rmLock=l,()=>{})}catch(e){}
-  RM={order:RRS.rand?shuffle([...RRS.ids]):[...RRS.ids],next:0,state:'start',deadline:0,paused:false,left:0,bell:false};
-  closeModals();$('#rrMatch').hidden=false;RM.tick=setInterval(rrTick,200);rrDraw();setTimeout(rrEnter,600)};
-function rrEnter(){if(!RM)return;const w=wById(RM.order[RM.next])||anon;RM.next++;RM.state='entrance';rrDraw();stageDone=rrAfter;entrance(w)}
-function rrAfter(){if(!RM)return;if(RM.next>=2&&!RM.bell){RM.bell=true;sound('bell',false)}
+  RM={order:RRS.rand?shuffle([...RRS.ids]):[...RRS.ids],next:0,state:'entrance',deadline:0,paused:false,left:0,bell:false};
+  closeModals();$('#rrMatch').hidden=false;$('#rrMatch').style.setProperty('--cs',RRS.clock/100);RM.tick=setInterval(rrTick,200);rrBg();rrEnter()};
+function rrEnter(){if(!RM)return;const w=wById(RM.order[RM.next])||anon;RM.next++;RM.state='entrance';rrDraw();stageDone=rrAfter;entrance(w,{reveal:rrReveal(w)})}
+function rrBlack(ms,then){const st=$('#stage');st.hidden=false;startedAt=performance.now();cancelAnimationFrame(raf);const[c,cw,ch]=fitCanvas($('#fx'));c.fillStyle='#000';c.fillRect(0,0,cw,ch);stageLock=true;stageDone=null;clearTimeout(cdT);cdT=setTimeout(()=>{stageLock=false;then()},ms)}
+function rrAfter(){if(!RM)return;if(RM.next===2&&!RM.bell){RM.bell=true;sound('bell',false)}
   if(RM.next>=RM.order.length){RM.state='done';rrDraw();return}
-  if(RM.next===1){rrCountdown();return}
+  if(RM.next===1){RM.state='black';rrDraw();rrBlack(2000,rrEnter);return}
   RM.state='timer';RM.paused=false;RM.deadline=performance.now()+RRS.gap*1000;rrDraw()}
-function rrCountdown(){if(!RM)return;RM.state='countdown';rrDraw();const w=wById(RM.order[RM.next])||anon;stageLock=true;stageDone=null;
-  countdown(w,()=>{stageLock=false;rrEnter()},{n:RRS.cd,label:`ENTRANT #${RM.next+1}`,buzzer:true,color:RRS.rand?'#6b6b80':w.color})}
+function rrCountdown(){if(!RM)return;RM.paused=false;RM.state='countdown';rrDraw();const w=wById(RM.order[RM.next])||anon;stageLock=true;stageDone=null;
+  countdown(w,()=>{stageLock=false;rrEnter()},{n:RRS.cd,label:`ENTRANT #${RM.next+1}`,buzzer:true,gap:2000,style:RRS.cdStyle,color:RRS.rand?'#6b6b80':w.color})}
 function rrTick(){if(!RM||RM.state!=='timer'||RM.paused)return;const left=(RM.deadline-performance.now())/1000;if(left<=RRS.cd){rrCountdown();return}$('#rrClk').textContent=fmt(left)}
-function rrDraw(){if(!RM)return;const tot=RM.order.length,st=RM.state,clk=$('#rrClk'),msg=$('#rrMsg');
-  if(st==='timer'){clk.textContent=fmt(RM.paused?RM.left:(RM.deadline-performance.now())/1000);msg.textContent=RM.paused?'Paused':`until entrant #${RM.next+1} of ${tot}`}
-  else if(st==='countdown'){clk.textContent='GO!';msg.textContent=`Entrant #${RM.next+1} is coming…`}
-  else if(st==='entrance'){clk.textContent='#'+RM.next;msg.textContent='Tap the entrance screen when they’re in the ring'}
-  else if(st==='done'){clk.textContent='ALL IN!';msg.textContent=`All ${tot} entrants are in the ring. Who will win?`}
-  else{clk.textContent='#1';msg.textContent='Here comes the first entrant…'}
-  $('#rrPause').textContent=RM.paused?'▶ Resume':'⏸ Pause';$('#rrPause').disabled=$('#rrNow').disabled=st!=='timer';
-  $('#rrQuit').textContent=st==='done'?'✓ End match':'✕ Quit match';
-  $('#rrRoster').innerHTML=RM.order.map((id,i)=>{const w=wById(id)||anon;if(i<RM.next)return`<div class="rt" style="--c:${esc(w.color)}">${tileInner(w)}<b>${i+1}</b></div>`;
-    if(RRS.rand)return`<div class="rt mys"><b>${i+1}</b>?</div>`;return`<div class="rt up" style="--c:${esc(w.color)}">${tileInner(w)}<b>${i+1}</b></div>`}).join('')}
+function rrDraw(){if(!RM)return;const tot=RM.order.length,st=RM.state,done=st==='done'||st==='winner';
+  $('#rrTimer').hidden=done;$('#rrWin').hidden=!done;$('#rrPause').style.visibility=done?'hidden':'visible';$('#rrRoster').hidden=done;
+  $('#rrQuit').textContent=done?'✓ End match':'✕ Quit match';
+  if(!done){const left=RM.paused?RM.left:(RM.deadline-performance.now())/1000;$('#rrClk').textContent=st==='timer'?fmt(left):'–';
+    $('#rrLab').textContent=RM.paused?'PAUSED':'NEXT ENTRANT IN';$('#rrMsg').textContent=st==='timer'?(RRS.rand?`Mystery entrant #${RM.next+1} of ${tot}`:`Entrant #${RM.next+1} of ${tot}`):'';
+    $('#rrPause').textContent=RM.paused?'▶ Resume':'⏸ Pause';$('#rrHint').hidden=st!=='timer'}
+  $('#rrRoster').innerHTML=RM.order.slice(0,RM.next).map((id,i)=>{const w=wById(id)||anon;return`<div class="rt" style="--c:${esc(w.color)}">${tileInner(w)}<b>${i+1}</b></div>`}).join('')+(RM.next<tot?`<div class="rt mys"><b>+${tot-RM.next}</b>?</div>`:'');
+  if(done)$('#rrWinGrid').innerHTML=RM.order.map(id=>{const w=wById(id)||anon;return`<button class="rt" data-win="${esc(id)}" style="--c:${esc(w.color)}">${tileInner(w)}</button>`}).join('')}
+$('#rrWinGrid').addEventListener('click',e=>{const b=e.target.closest('[data-win]');if(!b||!RM)return;const w=wById(b.dataset.win);if(!w)return;RM.state='winner';
+  stageDone=()=>{if(RM){RM.state='done';rrDraw()}};sound('bell',false);entrance({...w,bg:'generic',_noVideo:true,line1:'WINNER: '+w.name,slogan:'',nameDelay:0,nameSize:Math.min(+w.nameSize||100,100),winner:true},{reveal:'confetti'})});
 $('#rrPause').onclick=()=>{if(!RM||RM.state!=='timer')return;if(RM.paused){RM.deadline=performance.now()+RM.left*1000;RM.paused=false}else{RM.left=(RM.deadline-performance.now())/1000;RM.paused=true}rrDraw()};
-$('#rrNow').onclick=()=>{if(RM?.state==='timer')rrCountdown()};
-function rrQuit(){if(!RM)return;clearInterval(RM.tick);RM=null;stageDone=null;stageLock=false;if(!$('#stage').hidden)stop();$('#rrMatch').hidden=true;try{rmLock?.release()}catch(e){}rmLock=null}
-$('#rrQuit').onclick=()=>{const b=$('#rrQuit');if(RM?.state==='done'||b.dataset.sure){delete b.dataset.sure;rrQuit()}else{b.dataset.sure=1;b.textContent='Tap again to quit';setTimeout(()=>{delete b.dataset.sure;rrDraw()},3000)}};
+$('#rrSkip').onclick=()=>{if(RM?.state==='timer')rrCountdown()};
+function rrBg(){cancelAnimationFrame(rrRaf);const cv=$('#rrFx'),fn=RRS.bg>=0&&STYLES[RRS.bg]?STYLES[RRS.bg].make():null,t0=performance.now();let last=t0;
+  const loop=ms=>{if(!RM)return;rrRaf=requestAnimationFrame(loop);if(!$('#stage').hidden)return;const[c,w,h]=fitCanvas(cv,1.25);if(w<8||h<8)return;const t=(ms-t0)/1000,dt=Math.max(0,Math.min(.05,(ms-last)/1000));last=ms;
+    if(fn){NAMEOPT={delay:0,tl:t,text:'',scale:1,font:'Anton',look:'auto',col:RRS.bgColor};fn(c,w,h,t,dt,RRS.bgColor,'')}else bgFill(c,w,h,'#1a1206','#050508');c.fillStyle='rgba(0,0,0,.35)';c.fillRect(0,0,w,h)};rrRaf=requestAnimationFrame(loop)}
+function rrQuit(){if(!RM)return;clearInterval(RM.tick);cancelAnimationFrame(rrRaf);RM=null;stageDone=null;stageLock=false;if(!$('#stage').hidden)stop();$('#rrMatch').hidden=true;try{rmLock?.release()}catch(e){}rmLock=null}
+$('#rrQuit').onclick=async()=>{if(!RM)return;if(RM.state==='done'||await ask('Quit the match?','The Royal Rumble will end now.','Quit match'))rrQuit()};
 
 /* ---------- start ---------- */
 
