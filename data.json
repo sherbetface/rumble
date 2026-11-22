@@ -1,6 +1,6 @@
 {
  "app": "ready2rumble",
- "rev": 1795312521287,
+ "rev": 1795312759866,
  "W": [
   {
    "photo": "https://raw.githubusercontent.com/sherbetface/rumble/b0e253901773c970a13cf119c3dca6cd7530592b/photos/w1.jpg",
@@ -689,19 +689,19 @@
    "yt": "",
    "ytAudio": false,
    "video": "",
-   "nameDelay": 0,
-   "font": "Anton",
+   "nameDelay": 3,
+   "font": "Permanent Marker",
    "look": "auto",
-   "cmode": "one",
-   "color2": "#ffffff",
+   "cmode": "two",
+   "color2": "#95ff5d",
    "line1": "",
-   "slogan": "",
-   "altEvery": 3,
-   "nameSize": 100,
-   "reveal": "none",
+   "slogan": "THE VIPER",
+   "altEvery": 5,
+   "nameSize": 85,
+   "reveal": "waterfall",
    "id": "w1795302937587",
    "name": "Randy Orton",
-   "color": "#e67e22",
+   "color": "#e0aa6f",
    "style": 0
   },
   {
