@@ -202,7 +202,7 @@ button.rt{cursor:pointer;transition:transform .12s}button.rt:active{transform:sc
 
 <!-- grown-up menu -->
 <section class="modal" id="menu" hidden><div class="sheet">
-  <h2>Grown-ups <span style="font:700 15px Barlow,sans-serif;color:var(--muted);vertical-align:middle">v2.4</span></h2>
+  <h2>Grown-ups <span style="font:700 15px Barlow,sans-serif;color:var(--muted);vertical-align:middle">v2.5</span></h2>
   <div class="big">
     <button class="btn pri" id="mAdd">➕ Add a wrestler</button>
     <button class="btn" id="mHub">🛠 Admin hub (master list)</button>
@@ -231,6 +231,7 @@ button.rt{cursor:pointer;transition:transform .12s}button.rt:active{transform:sc
   <h2>💡 Hue light</h2>
   <p class="note" id="hueStatus"></p>
   <p class="note">Do this on each device that will play Rumble, while it’s on your home Wi-Fi.</p>
+  <pre id="hueLog" hidden style="background:#0d0d14;border:1px solid var(--gold);border-radius:12px;padding:12px;font-size:14px;white-space:pre-wrap;max-height:140px;overflow:auto"></pre>
   <h3>1 · 🔎 Find the bridge</h3>
   <div class="row" style="flex-wrap:nowrap"><input type="text" id="hueIp" placeholder="e.g. 192.168.1.20" inputmode="decimal" autocomplete="off" style="flex:1"><button class="btn" id="hueFind" style="flex:none">🔎 Find it</button></div>
   <p class="note">If Find it doesn’t work: Hue app → ⚙️ Settings → My Hue system (or Bridges) → your bridge → IP address.</p>
@@ -244,8 +245,6 @@ button.rt{cursor:pointer;transition:transform .12s}button.rt:active{transform:sc
   <select id="hueLight"><option value="">Connect first</option></select>
   <div class="row" id="hueTry" style="margin-top:10px"><button class="btn" data-v="solid" data-c="#00ff40">🟢 Green</button><button class="btn" data-v="solid" data-c="#ff0000">🔴 Red</button><button class="btn" data-v="rainbow">🌈 Rainbow</button><button class="btn" data-v="police">🚨 Police</button><button class="btn" data-v="off">⏹️ Stop</button></div>
   <label class="tog" style="margin-top:14px"><input type="checkbox" id="huePyro">💥 Flash the light when pyro goes off</label>
-  <h3>🩺 What’s happening</h3>
-  <pre id="hueLog" style="background:#0d0d14;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:13px;white-space:pre-wrap;min-height:50px"></pre>
   <div class="actions"><button class="btn danger" id="hueForget">Forget this light</button><button class="btn pri" data-close>✅ Done</button></div>
 </div></section>
 
@@ -1257,10 +1256,12 @@ $('#rrQuit').onclick=async()=>{if(!RM)return;if(RM.state==='done'||await ask('Qu
 /* ---------- Philips Hue (local bridge) ---------- */
 const HUE={ip:'',user:'',light:'',lname:'',pyro:true,...ls.get('hue',{})};const hueSave=()=>ls.set('hue',HUE);
 const hueOn=()=>!!(HUE.ip&&HUE.user&&HUE.light);
-const hueLog=m=>{const el=$('#hueLog');if(el)el.textContent=new Date().toTimeString().slice(0,8)+' '+m+'\n'+el.textContent.slice(0,1500)};
+const hueLog=m=>{const el=$('#hueLog');if(el){el.hidden=false;el.textContent=new Date().toTimeString().slice(0,8)+' '+m+'\n'+el.textContent.slice(0,1500)}toast(m.length>120?m.slice(0,118)+'…':m)};
 function hexXY(hex){let[r,g,b]=hexRgb(hex).map(v=>v/255).map(v=>v>.04045?Math.pow((v+.055)/1.055,2.4):v/12.92);
   const X=r*.664511+g*.154324+b*.162028,Y=r*.283881+g*.668433+b*.047685,Z=r*.000088+g*.07231+b*.986039,s=X+Y+Z;return s?[+(X/s).toFixed(4),+(Y/s).toFixed(4)]:[.3227,.329]}
-async function hueFetch(path,method='GET',body){const r=await fetch(`https://${HUE.ip}/api${path}`,{method,headers:body?{'Content-Type':'application/json'}:{},body:body?JSON.stringify(body):undefined,cache:'no-store'});return r.json()}
+async function tfetch(url,opt={},ms=6000){const ac=new AbortController(),t=setTimeout(()=>ac.abort(),ms);try{return await fetch(url,{...opt,signal:ac.signal})}catch(e){throw new Error(e.name==='AbortError'?'no answer after '+ms/1000+' seconds':e.message)}finally{clearTimeout(t)}}
+async function hueFetch(path,method='GET',body){if(!HUE.ip)throw new Error('no bridge address yet');const r=await tfetch(`https://${HUE.ip}/api${path}`,{method,headers:body?{'Content-Type':'application/json'}:{},body:body?JSON.stringify(body):undefined,cache:'no-store'});return r.json()}
+async function busy(btn,label,fn){const old=btn.textContent;btn.disabled=true;btn.textContent='⏳ '+label;try{await fn()}finally{btn.disabled=false;btn.textContent=old}}
 let hueBusy=false,huePend=null;
 function hueSet(st){if(!hueOn())return;if(hueBusy){huePend=st;return}hueBusy=true;hueFetch(`/${HUE.user}/lights/${HUE.light}/state`,'PUT',st).catch(e=>hueLog('Send failed: '+e.message)).finally(()=>{hueBusy=false;if(huePend){const p=huePend;huePend=null;hueSet(p)}})}
 let hueT=0,huePrev=null,hueFxOn=false;
@@ -1283,11 +1284,12 @@ function hueShow(){$('#hueIp').value=HUE.ip;$('#huePyro').checked=HUE.pyro!==fal
 async function hueLights(){try{const L=await hueFetch(`/${HUE.user}/lights`);if(L[0]?.error)throw new Error(L[0].error.description);
   $('#hueLight').innerHTML='<option value="">Pick a light…</option>'+Object.entries(L).map(([id,l])=>`<option value="${id}"${id===HUE.light?' selected':''}>${esc(l.name)}${l.state.reachable===false?' (switched off?)':''}</option>`).join('');hueLog('Found '+Object.keys(L).length+' lights')}
   catch(e){hueLog('Couldn’t list lights: '+e.message)}}
-$('#hueFind').onclick=async()=>{try{const r=await(await fetch('https://discovery.meethue.com/')).json();if(r[0]?.internalipaddress){HUE.ip=r[0].internalipaddress;hueSave();hueShow();hueLog('Found the bridge at '+HUE.ip)}else hueLog('No bridge found. Type the address from the Hue app instead.')}catch(e){hueLog('Search failed: '+e.message+'. Type the address from the Hue app instead.')}};
+$('#hueFind').onclick=e=>busy(e.currentTarget,'Searching…',async()=>{try{const r=await(await tfetch('https://discovery.meethue.com/',{cache:'no-store'})).json();if(r[0]?.internalipaddress){HUE.ip=r[0].internalipaddress;hueSave();hueShow();hueLog('✅ Found the bridge at '+HUE.ip+'. Now do step 2.')}else hueLog('🔎 No bridge found online. Type the address from the Hue app instead.')}catch(x){hueLog('🔎 Search didn’t work ('+x.message+'). Type the address from the Hue app instead.')}});
+$('#hueIp').oninput=()=>{HUE.ip=$('#hueIp').value.trim().replace(/^https?:\/\//,'').replace(/\/.*$/,'');hueSave();$('#hueOpen').href=HUE.ip?`https://${HUE.ip}/api/config`:'#'};
 $('#hueIp').onchange=()=>{HUE.ip=$('#hueIp').value.trim().replace(/^https?:\/\//,'').replace(/\/.*$/,'');hueSave();hueShow()};
-$('#hueTest').onclick=async()=>{try{const c=await hueFetch('/config');hueLog('✅ The bridge answered: '+(c.name||'Hue Bridge')+'. Now press its round button and tap Connect.')}catch(e){hueLog('❌ Can’t reach the bridge ('+e.message+'). Tap step 2’s link, accept the warning, then try again.')}};
-$('#hueLink').onclick=async()=>{try{const r=await hueFetch('','POST',{devicetype:'ready2rumble#'+(/iPad/.test(navigator.userAgent)?'ipad':/iPhone/.test(navigator.userAgent)?'iphone':'browser')});
-  if(r[0]?.success){HUE.user=r[0].success.username;hueSave();hueLog('✅ Connected! Now pick your light.');hueShow()}else hueLog('❌ '+(r[0]?.error?.description||'No answer')+(r[0]?.error?.type===101?'. Press the round button on the bridge first, then tap Connect within 30 seconds.':''))}catch(e){hueLog('❌ Can’t reach the bridge: '+e.message)}};
+$('#hueTest').onclick=e=>{$('#hueIp').dispatchEvent(new Event('change'));busy(e.currentTarget,'Testing…',async()=>{try{const c=await hueFetch('/config');hueLog('✅ The bridge answered ('+(c.name||'Hue Bridge')+'). Now do step 3.')}catch(x){hueLog('❌ Can’t reach the bridge at '+HUE.ip+' ('+x.message+'). Tap 🔗 Open the bridge, accept the warning, then Test again.')}})};
+$('#hueLink').onclick=e=>busy(e.currentTarget,'Connecting…',async()=>{try{const r=await hueFetch('','POST',{devicetype:'ready2rumble#'+(/iPad/.test(navigator.userAgent)?'ipad':/iPhone/.test(navigator.userAgent)?'iphone':'browser')});
+  if(r[0]?.success){HUE.user=r[0].success.username;hueSave();hueLog('✅ Connected! Now pick your light.');hueShow()}else hueLog('❌ '+(r[0]?.error?.description||'No answer')+(r[0]?.error?.type===101?'. Press the round button on the bridge first, then tap Connect within 30 seconds.':''))}catch(x){hueLog('❌ Can’t reach the bridge: '+x.message)}});
 $('#hueLight').onchange=()=>{HUE.light=$('#hueLight').value;HUE.lname=$('#hueLight').selectedOptions[0]?.textContent.replace(/ \(.*$/,'')||'';hueSave();hueShow();buildHueBtns()};
 $('#huePyro').onchange=()=>{HUE.pyro=$('#huePyro').checked;hueSave()};
 $$('#hueTry button').forEach(b=>b.onclick=()=>{const v=b.dataset.v;if(v==='off')return hueStop();hueStart({fx:v,c1:b.dataset.c||'#ff0000',c2:'#0040ff'})});
